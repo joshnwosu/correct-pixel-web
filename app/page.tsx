@@ -66,7 +66,7 @@ const SimpleTypographyAnimation: React.FC = () => {
       {/* Main Typography */}
       <div className='text-center'>
         <h1
-          className='text-8xl md:text-9xl font-bold'
+          className='text-4xl md:text-9xl font-bold'
           style={{
             WebkitTextStroke: '2px white',
             WebkitTextFillColor: 'transparent',
