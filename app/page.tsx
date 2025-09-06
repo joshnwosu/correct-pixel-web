@@ -1,7 +1,7 @@
 'use client';
 
 import { animate, createScope } from 'animejs';
-import { useEffect, useRef } from 'react';
+import { JSX, useEffect, useRef } from 'react';
 
 interface ScopeInstance {
   revert: () => void;
@@ -28,7 +28,7 @@ const SimpleTypographyAnimation: React.FC = () => {
           opacity: [0, 1],
           translateY: [50, 0],
           duration: 800,
-          delay: (_el: Element, i: number) => i * 100,
+          delay: (_el: any, i: number) => i * 100,
           ease: 'out(3)',
         });
       }, 500);
