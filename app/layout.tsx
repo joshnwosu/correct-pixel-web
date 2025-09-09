@@ -1,5 +1,12 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Ultra, Josefin_Sans } from 'next/font/google';
+import {
+  Geist,
+  Geist_Mono,
+  Ultra,
+  Josefin_Sans,
+  Playwrite_US_Trad,
+  Play,
+} from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';
 
@@ -26,6 +33,11 @@ const josefinSans = Josefin_Sans({
   subsets: ['latin'],
 });
 
+const playwrite = Playwrite_US_Trad({
+  weight: '400',
+  variable: '--font-playwrite',
+});
+
 export const metadata: Metadata = {
   title: 'Correct Pixel',
   description: 'Digital design and development studio',
@@ -39,9 +51,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ultra.variable} ${josefinSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ultra.variable} ${josefinSans.variable} ${playwrite.variable} antialiased`}
       >
-        {/* <Header /> */}
+        <Header />
         {children}
       </body>
     </html>

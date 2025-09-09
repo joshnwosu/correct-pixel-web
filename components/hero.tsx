@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const HeroSection = () => {
+  const [activeSlice, setActiveSlice] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlice((prev) => (prev + 1) % 4);
+    }, 2000); // Change slice every 2 second
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className='relative min-h-screen overflow-hidden flex justify-center items-center gap-20'>
-      <div className='absolute -top-10 -right-100 flex items-center justify-center z-5 px-10 opacity-20 backdrop-blur-md'>
+      <div className='absolute -top-10 -right-100 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
         <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
           Correct
         </h1>
       </div>
 
-      <div className='absolute -bottom-10 -left-50 flex items-center justify-center z-5 px-10 opacity-20 backdrop-blur-md'>
+      <div className='absolute -bottom-10 -left-50 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
         <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
           Pixel
         </h1>
@@ -22,7 +32,7 @@ const HeroSection = () => {
 
       {/* Animated Gradient Orbs for depth */}
       <div className='absolute inset-0'>
-        <div className='absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse' />
+        <div className='absolute top-20 left-20 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse' />
         <div className='absolute top-40 right-20 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000' />
         <div className='absolute bottom-20 left-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-4000' />
       </div>
@@ -61,12 +71,10 @@ const HeroSection = () => {
               Brands <span className='inline-block'></span>
             </motion.span>
             <span
-              className='inline-block bg-amber-400 text-white px-6 rounded-xl shadow-2xl'
+              className='inline-block text-white px-6 rounded-xl shadow-2xl inset-0 bg-gradient-to-l from-purple-600  to-purple-300'
               style={{
                 transform: 'perspective(500px) rotateY(-35deg) rotateZ(-1deg)',
                 transformOrigin: 'left center',
-                background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                boxShadow: '0 20px 40px rgba(251, 191, 36, 0.4)',
               }}
             >
               that
@@ -101,9 +109,10 @@ const HeroSection = () => {
                 objectPosition: '0% 0%',
                 transform: 'scale(2)',
                 transformOrigin: 'top left',
+                filter: activeSlice === 0 ? 'grayscale(0%)' : 'grayscale(100%)',
+                transition: 'filter 0.5s ease-in-out',
               }}
               alt='Hero slice 1'
-              className='grayscale'
             />
           </div>
         </motion.div>
@@ -125,9 +134,10 @@ const HeroSection = () => {
                 objectPosition: '100% 0%',
                 transform: 'scale(2)',
                 transformOrigin: 'top right',
+                filter: activeSlice === 1 ? 'grayscale(0%)' : 'grayscale(100%)',
+                transition: 'filter 0.5s ease-in-out',
               }}
               alt='Hero slice 2'
-              className='grayscale'
             />
           </div>
         </motion.div>
@@ -149,9 +159,10 @@ const HeroSection = () => {
                 objectPosition: '0% 100%',
                 transform: 'scale(2)',
                 transformOrigin: 'bottom left',
+                filter: activeSlice === 3 ? 'grayscale(0%)' : 'grayscale(100%)',
+                transition: 'filter 0.5s ease-in-out',
               }}
               alt='Hero slice 3'
-              className='grayscale'
             />
           </div>
         </motion.div>
@@ -173,9 +184,10 @@ const HeroSection = () => {
                 objectPosition: '100% 100%',
                 transform: 'scale(2)',
                 transformOrigin: 'bottom right',
+                filter: activeSlice === 2 ? 'grayscale(0%)' : 'grayscale(100%)',
+                transition: 'filter 0.5s ease-in-out',
               }}
               alt='Hero slice 4'
-              className='grayscale'
             />
           </div>
         </motion.div>
