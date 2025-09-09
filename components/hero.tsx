@@ -5,29 +5,18 @@ import Image from 'next/image';
 const HeroSection = () => {
   return (
     <section className='relative min-h-screen overflow-hidden flex justify-center items-center gap-20'>
-      <div className='absolute left-0 top-0 h-full w-24 flex items-center justify-center z-10'>
-        <h1
-          className='text-8xl text-stroke font-ultra font-extralight rotate-180 tracking-wider uppercase'
-          style={{
-            writingMode: 'vertical-rl',
-            WebkitTextStroke: '2px black',
-          }}
-        >
+      <div className='absolute -top-10 -right-100 flex items-center justify-center z-5 px-10 opacity-20 backdrop-blur-md'>
+        <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
           Correct
         </h1>
       </div>
 
-      <div className='absolute right-0 top-0 h-full w-24 flex items-center justify-center z-10'>
-        <h1
-          className='text-8xl text-stroke font-ultra font-extralight tracking-wider uppercase'
-          style={{
-            writingMode: 'vertical-lr',
-            WebkitTextStroke: '2px black',
-          }}
-        >
+      <div className='absolute -bottom-10 -left-50 flex items-center justify-center z-5 px-10 opacity-20 backdrop-blur-md'>
+        <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
           Pixel
         </h1>
       </div>
+
       {/* Gradient Background */}
       <div className='absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-orange-100' />
 
@@ -52,7 +41,7 @@ const HeroSection = () => {
         }}
       />
 
-      <div className='relative z-10 max-w-xl space-y-12 p-4'>
+      <div className='relative z-10 max-w-2xl space-y-12 p-4'>
         <h1 className='relative z-10 text-black font-ultra font-medium text-7xl text-left'>
           <span className='inline-block'>We Build</span>
           <br />
@@ -77,7 +66,7 @@ const HeroSection = () => {
                 transform: 'perspective(500px) rotateY(-35deg) rotateZ(-1deg)',
                 transformOrigin: 'left center',
                 background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                boxShadow: '0 20px 40px rgba(251, 191, 36, 0.3)',
+                boxShadow: '0 20px 40px rgba(251, 191, 36, 0.4)',
               }}
             >
               that
