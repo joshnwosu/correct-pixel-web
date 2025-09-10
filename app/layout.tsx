@@ -5,7 +5,6 @@ import {
   Ultra,
   Josefin_Sans,
   Playwrite_US_Trad,
-  Play,
 } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/header';

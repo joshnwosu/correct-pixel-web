@@ -1,31 +1,91 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const HeroSection = () => {
   const [activeSlice, setActiveSlice] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  // Sample card data - customize these to match your brand
+  const cards = [
+    {
+      id: 1,
+      image:
+        'https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg',
+    },
+    {
+      id: 2,
+      image:
+        'https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_1280.jpg',
+    },
+    {
+      id: 3,
+      image:
+        'https://cdn.pixabay.com/photo/2015/06/24/15/45/hands-820272_1280.jpg',
+    },
+    {
+      id: 4,
+      image:
+        'https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg',
+    },
+    {
+      id: 5,
+      image:
+        'https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_1280.jpg',
+    },
+    {
+      id: 6,
+      image:
+        'https://cdn.pixabay.com/photo/2016/03/09/09/17/computer-1245714_1280.jpg',
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlice((prev) => (prev + 1) % 4);
-    }, 2000); // Change slice every 2 second
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section className='relative min-h-screen overflow-hidden flex justify-center items-center gap-20'>
-      <div className='absolute -top-10 -right-100 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
-        <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
-          Correct
-        </h1>
-      </div>
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current || !cardsRef.current) return;
 
-      <div className='absolute -bottom-10 -left-50 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
-        <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
-          Pixel
-        </h1>
-      </div>
+      const container = containerRef.current;
+      const cards = cardsRef.current;
+
+      const rect = container.getBoundingClientRect();
+      const containerHeight = container.offsetHeight;
+      const viewportHeight = window.innerHeight;
+
+      if (rect.top <= viewportHeight && rect.bottom >= 0) {
+        const scrolled = viewportHeight - rect.top;
+        const scrollRange = viewportHeight + containerHeight;
+        const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+
+        const cardsWidth = cards.scrollWidth;
+        const containerWidth = cards.offsetWidth;
+        const maxScroll = cardsWidth - containerWidth;
+
+        const horizontalScroll = progress * maxScroll + cardsWidth * 0.1; // Start a bit off-screen
+        cards.style.transform = `translateX(-${horizontalScroll}px)`;
+
+        setScrollProgress(progress);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <section className='relative overflow-hidden pb-10'>
+      {/* Your existing hero content */}
 
       {/* Gradient Background */}
       <div className='absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-orange-100' />
@@ -51,151 +111,209 @@ const HeroSection = () => {
         }}
       />
 
-      <div className='relative z-10 max-w-2xl space-y-12 p-4'>
-        <h1 className='relative z-10 text-black font-ultra font-medium text-7xl text-left'>
-          <span className='inline-block'>We Build</span>
-          <br />
-          <span className='inline-flex items-center'>
-            <motion.span
-              className='text-stroke font-ultra font-extralight inline-block italic'
-              style={{
-                overflow: 'hidden',
-                whiteSpace: 'nowrap',
-                WebkitTextStroke: '2px black',
-                WebkitTextFillColor: 'transparent',
-              }}
-              initial={{ width: 0 }}
-              animate={{ width: 'auto' }}
-              transition={{ duration: 2, ease: 'easeInOut' }}
-            >
-              Brands <span className='inline-block'></span>
-            </motion.span>
-            <span
-              className='inline-block text-white px-6 rounded-xl shadow-2xl inset-0 bg-gradient-to-l from-purple-600  to-purple-300'
-              style={{
-                transform: 'perspective(500px) rotateY(-35deg) rotateZ(-1deg)',
-                transformOrigin: 'left center',
-              }}
-            >
-              that
+      <div className='relative flex justify-center items-center gap-20 py-40'>
+        <div className='absolute -top-10 -right-100 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
+          <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
+            Correct
+          </h1>
+        </div>
+
+        <div className='absolute -bottom-10 -left-50 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
+          <h1 className='text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
+            Pixel
+          </h1>
+        </div>
+
+        <div className='relative z-10 max-w-3xl space-y-12 p-4'>
+          <h1 className='relative z-10 text-black font-ultra font-medium text-7xl text-left'>
+            <span className='inline-block'>We Build</span>
+            <br />
+            <span className='inline-flex items-center'>
+              <motion.span
+                className='text-stroke font-ultra font-extralight inline-block italic'
+                style={{
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                  WebkitTextStroke: '2px black',
+                  WebkitTextFillColor: 'transparent',
+                }}
+                initial={{ width: 0 }}
+                animate={{ width: 'auto' }}
+                transition={{ duration: 2, ease: 'easeInOut' }}
+              >
+                Brands <span className='inline-block'></span>
+              </motion.span>
+              <span
+                className='inline-block text-white px-6 rounded-xl shadow-2xl inset-0 bg-gradient-to-l from-purple-600  to-purple-300'
+                style={{
+                  transform:
+                    'perspective(500px) rotateY(-35deg) rotateZ(-1deg)',
+                  transformOrigin: 'left center',
+                }}
+              >
+                that
+              </span>
             </span>
-          </span>
-          <br /> <span className='inline-block'>Stand Out!</span>
-        </h1>
+            <br /> <span className='inline-block'>Stand Out!</span>
+          </h1>
 
-        <p className='text-2xl font-josefin font-normal'>
-          Crafting pixel-perfect web experiences and stunning UI designs that
-          captivate audiences and drive results. Your vision, executed
-          flawlessly.
-        </p>
+          <p className='text-2xl font-josefin font-normal'>
+            Crafting pixel-perfect web experiences and stunning UI designs that
+            captivate audiences and drive results. Your vision, executed
+            flawlessly.
+          </p>
+        </div>
+
+        {/* Sliced Image Grid */}
+        <div className='relative z-5 grid grid-cols-2 gap-4 w-[420px] h-[420px]'>
+          {/* Top Left Slice */}
+          <motion.div
+            className='relative overflow-hidden rounded-2xl'
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className='absolute inset-0  z-10' />
+            <div className='relative w-full h-full'>
+              <Image
+                src='/hero.png'
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: '0% 0%',
+                  transform: 'scale(2)',
+                  transformOrigin: 'top left',
+                  filter:
+                    activeSlice === 0 ? 'grayscale(0%)' : 'grayscale(100%)',
+                  transition: 'filter 0.5s ease-in-out',
+                }}
+                alt='Hero slice 1'
+              />
+            </div>
+          </motion.div>
+
+          {/* Top Right Slice */}
+          <motion.div
+            className='relative overflow-hidden rounded-2xl'
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className='absolute inset-0 z-10' />
+            <div className='relative w-full h-full'>
+              <Image
+                src='/hero.png'
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: '100% 0%',
+                  transform: 'scale(2)',
+                  transformOrigin: 'top right',
+                  filter:
+                    activeSlice === 1 ? 'grayscale(0%)' : 'grayscale(100%)',
+                  transition: 'filter 0.5s ease-in-out',
+                }}
+                alt='Hero slice 2'
+              />
+            </div>
+          </motion.div>
+
+          {/* Bottom Left Slice */}
+          <motion.div
+            className='relative overflow-hidden rounded-2xl'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <div className='absolute inset-0 z-10' />
+            <div className='relative w-full h-full'>
+              <Image
+                src='/hero.png'
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: '0% 100%',
+                  transform: 'scale(2)',
+                  transformOrigin: 'bottom left',
+                  filter:
+                    activeSlice === 3 ? 'grayscale(0%)' : 'grayscale(100%)',
+                  transition: 'filter 0.5s ease-in-out',
+                }}
+                alt='Hero slice 3'
+              />
+            </div>
+          </motion.div>
+
+          {/* Bottom Right Slice */}
+          <motion.div
+            className='relative overflow-hidden rounded-2xl'
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <div className='absolute inset-0 z-10' />
+            <div className='relative w-full h-full'>
+              <Image
+                src='/hero.png'
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: '100% 100%',
+                  transform: 'scale(2)',
+                  transformOrigin: 'bottom right',
+                  filter:
+                    activeSlice === 2 ? 'grayscale(0%)' : 'grayscale(100%)',
+                  transition: 'filter 0.5s ease-in-out',
+                }}
+                alt='Hero slice 4'
+              />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Additional glossy overlay for premium finish */}
+        <div className='absolute inset-0 pointer-events-none'>
+          <div className='absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent' />
+        </div>
       </div>
 
-      {/* Sliced Image Grid */}
-      <div className='relative z-5 grid grid-cols-2 gap-4 w-[420px] h-[420px]'>
-        {/* Top Left Slice */}
-        <motion.div
-          className='relative overflow-hidden rounded-2xl'
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <div className='absolute inset-0  z-10' />
-          <div className='relative w-full h-full'>
-            <Image
-              src='/hero.png'
-              fill
-              style={{
-                objectFit: 'cover',
-                objectPosition: '0% 0%',
-                transform: 'scale(2)',
-                transformOrigin: 'top left',
-                filter: activeSlice === 0 ? 'grayscale(0%)' : 'grayscale(100%)',
-                transition: 'filter 0.5s ease-in-out',
-              }}
-              alt='Hero slice 1'
-            />
+      {/* HORIZONTAL SCROLL CARDS SECTION */}
+      <div ref={containerRef} className='relative w-full z-10'>
+        {/* <div className='sticky top-0 h-[500px] flex items-center '> */}
+        {/* Cards Container */}
+        <div className='overflow-hidden w-full px-8'>
+          <div
+            ref={cardsRef}
+            className='flex gap-6 transition-transform duration-100 ease-out items-center'
+            style={{ willChange: 'transform' }}
+          >
+            {cards.map((card, index) => (
+              <motion.div
+                key={card.id}
+                className={`relative flex-shrink-0 w-[30vw] ${
+                  index % 2 === 0 ? 'h-[20vw]' : 'h-[25vw]'
+                } rounded-2xl overflow-hidden transition-all duration-300 group cursor-pointer`}
+                style={{
+                  transform: `translateY(${index % 2 === 0 ? -20 : 20}px)`,
+                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.02 }}
+              >
+                {/* Background Image */}
+                <Image
+                  src={card.image}
+                  alt={card.id.toString()}
+                  fill
+                  priority
+                  className='object-cover group-hover:scale-110 transition-transform duration-700 grayscale'
+                />
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
-
-        {/* Top Right Slice */}
-        <motion.div
-          className='relative overflow-hidden rounded-2xl'
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <div className='absolute inset-0 z-10' />
-          <div className='relative w-full h-full'>
-            <Image
-              src='/hero.png'
-              fill
-              style={{
-                objectFit: 'cover',
-                objectPosition: '100% 0%',
-                transform: 'scale(2)',
-                transformOrigin: 'top right',
-                filter: activeSlice === 1 ? 'grayscale(0%)' : 'grayscale(100%)',
-                transition: 'filter 0.5s ease-in-out',
-              }}
-              alt='Hero slice 2'
-            />
-          </div>
-        </motion.div>
-
-        {/* Bottom Left Slice */}
-        <motion.div
-          className='relative overflow-hidden rounded-2xl'
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <div className='absolute inset-0 z-10' />
-          <div className='relative w-full h-full'>
-            <Image
-              src='/hero.png'
-              fill
-              style={{
-                objectFit: 'cover',
-                objectPosition: '0% 100%',
-                transform: 'scale(2)',
-                transformOrigin: 'bottom left',
-                filter: activeSlice === 3 ? 'grayscale(0%)' : 'grayscale(100%)',
-                transition: 'filter 0.5s ease-in-out',
-              }}
-              alt='Hero slice 3'
-            />
-          </div>
-        </motion.div>
-
-        {/* Bottom Right Slice */}
-        <motion.div
-          className='relative overflow-hidden rounded-2xl'
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className='absolute inset-0 z-10' />
-          <div className='relative w-full h-full'>
-            <Image
-              src='/hero.png'
-              fill
-              style={{
-                objectFit: 'cover',
-                objectPosition: '100% 100%',
-                transform: 'scale(2)',
-                transformOrigin: 'bottom right',
-                filter: activeSlice === 2 ? 'grayscale(0%)' : 'grayscale(100%)',
-                transition: 'filter 0.5s ease-in-out',
-              }}
-              alt='Hero slice 4'
-            />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Additional glossy overlay for premium finish */}
-      <div className='absolute inset-0 pointer-events-none'>
-        <div className='absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent' />
+        </div>
+        {/* </div> */}
       </div>
     </section>
   );
