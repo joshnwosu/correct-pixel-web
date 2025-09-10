@@ -4,9 +4,11 @@ import Image from 'next/image';
 
 const HeroSection = () => {
   const [activeSlice, setActiveSlice] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number>(0);
+  const currentTranslateRef = useRef(0);
+  const targetTranslateRef = useRef(0);
 
   // Sample card data - customize these to match your brand
   const cards = [
@@ -38,7 +40,12 @@ const HeroSection = () => {
     {
       id: 6,
       image:
-        'https://cdn.pixabay.com/photo/2016/03/09/09/17/computer-1245714_1280.jpg',
+        'https://cdn.pixabay.com/photo/2015/06/24/15/45/hands-820272_1280.jpg',
+    },
+    {
+      id: 7,
+      image:
+        'https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_1280.jpg',
     },
   ];
 
@@ -51,6 +58,30 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
+    let isAnimating = false;
+
+    const smoothAnimation = () => {
+      if (!cardsRef.current) return;
+
+      // Smooth easing - adjust the 0.1 for different smoothness levels
+      // Lower = smoother but slower to catch up, Higher = more responsive
+      const ease = 0.08;
+      currentTranslateRef.current +=
+        (targetTranslateRef.current - currentTranslateRef.current) * ease;
+
+      // Apply the transform
+      cardsRef.current.style.transform = `translateX(${currentTranslateRef.current}px)`;
+
+      // Continue animation if we haven't reached the target
+      if (
+        Math.abs(targetTranslateRef.current - currentTranslateRef.current) > 0.1
+      ) {
+        animationFrameRef.current = requestAnimationFrame(smoothAnimation);
+      } else {
+        isAnimating = false;
+      }
+    };
+
     const handleScroll = () => {
       if (!containerRef.current || !cardsRef.current) return;
 
@@ -61,26 +92,43 @@ const HeroSection = () => {
       const containerHeight = container.offsetHeight;
       const viewportHeight = window.innerHeight;
 
+      // Check if container is in viewport
       if (rect.top <= viewportHeight && rect.bottom >= 0) {
+        // Calculate scroll progress
         const scrolled = viewportHeight - rect.top;
         const scrollRange = viewportHeight + containerHeight;
         const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
 
+        // Calculate the maximum scroll distance
         const cardsWidth = cards.scrollWidth;
         const containerWidth = cards.offsetWidth;
-        const maxScroll = cardsWidth - containerWidth;
+        const maxScroll = cardsWidth - containerWidth + 100; // Add some padding
 
-        const horizontalScroll = progress * maxScroll + cardsWidth * 0.1; // Start a bit off-screen
-        cards.style.transform = `translateX(-${horizontalScroll}px)`;
+        // Calculate target position with easing curve
+        // Using a power curve for more interesting motion
+        const easedProgress = Math.pow(progress, 1.2); // Adjust power for different curves
+        targetTranslateRef.current = -easedProgress * maxScroll;
 
-        setScrollProgress(progress);
+        // Start animation if not already running
+        if (!isAnimating) {
+          isAnimating = true;
+          smoothAnimation();
+        }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Initial setup
     handleScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -277,43 +325,42 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* HORIZONTAL SCROLL CARDS SECTION */}
-      <div ref={containerRef} className='relative w-full z-10'>
-        {/* <div className='sticky top-0 h-[500px] flex items-center '> */}
+      {/* HORIZONTAL SCROLL CARDS SECTION WITH EXTRA SMOOTH SCROLLING */}
+      <div ref={containerRef} className='relative w-full z-10 py-20'>
         {/* Cards Container */}
         <div className='overflow-hidden w-full px-8'>
           <div
             ref={cardsRef}
-            className='flex gap-6 transition-transform duration-100 ease-out items-center'
-            style={{ willChange: 'transform' }}
+            className='flex gap-6 items-center pl-[10vw]'
+            style={{
+              willChange: 'transform',
+            }}
           >
             {cards.map((card, index) => (
               <motion.div
                 key={card.id}
                 className={`relative flex-shrink-0 w-[30vw] ${
                   index % 2 === 0 ? 'h-[20vw]' : 'h-[25vw]'
-                } rounded-2xl overflow-hidden transition-all duration-300 group cursor-pointer`}
+                } rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer shadow-xl`}
                 style={{
-                  transform: `translateY(${index % 2 === 0 ? -20 : 20}px)`,
+                  transform: `translateY(${
+                    index % 2 === 0 ? -20 : 20
+                  }px) rotateZ(${index % 2 === 0 ? -2 : 2}deg)`,
                 }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
+                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
               >
-                {/* Background Image */}
                 <Image
                   src={card.image}
-                  alt={card.id.toString()}
+                  alt={`Card ${card.id}`}
                   fill
                   priority
-                  className='object-cover group-hover:scale-110 transition-transform duration-700 grayscale'
+                  className='object-cover transition-transform duration-700 ease-out grayscale'
                 />
               </motion.div>
             ))}
           </div>
         </div>
-        {/* </div> */}
       </div>
     </section>
   );
