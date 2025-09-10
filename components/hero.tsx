@@ -326,7 +326,7 @@ const HeroSection = () => {
       </div>
 
       {/* HORIZONTAL SCROLL CARDS SECTION WITH EXTRA SMOOTH SCROLLING */}
-      <div ref={containerRef} className='relative w-full z-10 py-20'>
+      <div ref={containerRef} className='relative w-full z-10 py-0'>
         {/* Cards Container */}
         <div className='overflow-hidden w-full px-8'>
           <div
