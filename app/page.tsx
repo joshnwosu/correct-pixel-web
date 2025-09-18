@@ -1,6 +1,6 @@
 'use client';
 
-import HeroSection from '@/components/hero';
+import HeroSection from '@/components/sections/hero';
 
 const Home: React.FC = () => {
   return (

@@ -1,0 +1,117 @@
+my-website/
+├── .env.local
+├── .gitignore
+├── next.config.js
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+├── components.json          # shadcn/ui config
+├── README.md
+│
+├── public/
+│   ├── images/
+│   │   ├── logo.svg
+│   │   ├── hero/
+│   │   │   ├── hero-bg.jpg
+│   │   │   └── hero-image.png
+│   │   ├── features/
+│   │   │   ├── feature-1.svg
+│   │   │   └── feature-2.svg
+│   │   ├── team/
+│   │   │   ├── john-doe.jpg
+│   │   │   └── jane-smith.jpg
+│   │   └── testimonials/
+│   ├── favicon.ico
+│   ├── robots.txt
+│   └── sitemap.xml
+│
+├── src/
+│   ├── app/                 # App Router directory
+│   │   ├── globals.css
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Landing page (/)
+│   │   ├── loading.tsx
+│   │   ├── not-found.tsx
+│   │   │
+│   │   ├── about/
+│   │   │   └── page.tsx
+│   │   │
+│   │   ├── services/
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/      # Optional: individual service pages
+│   │   │       └── page.tsx
+│   │   │
+│   │   ├── pricing/
+│   │   │   └── page.tsx
+│   │   │
+│   │   ├── portfolio/       # Optional: showcase work
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx
+│   │   │
+│   │   ├── blog/           # Optional: content marketing
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx
+│   │   │
+│   │   ├── contact/
+│   │   │   └── page.tsx
+│   │   │
+│   │   └── api/            # Contact form, newsletter
+│   │       ├── contact/
+│   │       │   └── route.ts
+│   │       └── newsletter/
+│   │           └── route.ts
+│   │
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── input.tsx
+│   │   │   └── ...
+│   │   │
+│   │   ├── layout/          # Layout components
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Navigation.tsx
+│   │   │
+│   │   ├── sections/        # Landing page sections
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Features.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Services.tsx
+│   │   │   ├── Pricing.tsx
+│   │   │   ├── Testimonials.tsx
+│   │   │   ├── Portfolio.tsx
+│   │   │   ├── Team.tsx
+│   │   │   ├── FAQ.tsx
+│   │   │   └── CTA.tsx
+│   │   │
+│   │   ├── forms/
+│   │   │   ├── ContactForm.tsx
+│   │   │   └── NewsletterForm.tsx
+│   │   │
+│   │   └── common/          # Reusable components
+│   │       ├── Modal.tsx
+│   │       ├── LoadingSpinner.tsx
+│   │       └── PageTransition.tsx
+│   │
+│   ├── lib/
+│   │   ├── utils.ts         # Utility functions
+│   │   ├── validations.ts   # Form validation schemas
+│   │   └── constants.ts     # App constants
+│   │
+│   ├── hooks/
+│   │   ├── useContactForm.ts
+│   │   └── useLocalStorage.ts
+│   │
+│   ├── types/
+│   │   ├── index.ts
+│   │   └── forms.ts
+│   │
+│   └── data/                # Static data
+│       ├── navigation.ts
+│       ├── services.ts
+│       ├── testimonials.ts
+│       ├── team.ts
+│       └── pricing.ts
