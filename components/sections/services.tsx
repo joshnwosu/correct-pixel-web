@@ -26,7 +26,13 @@ const Services = () => {
                 <p className='text-5xl font-extrabold'>{service.title}</p>
               </div>
               <div className='col-span-2 rounded-md flex gap-4'>
-                <div className='w-md h-64 bg-accent rounded-md flex-shrink-0'></div>
+                <div className='w-md h-64 bg-accent rounded-md flex-shrink-0 overflow-hidden'>
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className='w-full h-full object-cover hover:scale-105 transition-transform duration-300 grayscale'
+                  />
+                </div>
                 <div className='flex-1 flex flex-col justify-end'>
                   <div className='space-y-4'>
                     <div className='flex items-center gap-4'>

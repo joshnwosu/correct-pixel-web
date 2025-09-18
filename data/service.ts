@@ -10,6 +10,7 @@ export const services = [
       'Brand Marketing',
       'Brand Strategy',
     ],
+    image: '/images/5.jpg',
   },
   {
     title: 'UI/UX Design',
@@ -23,6 +24,7 @@ export const services = [
       'Wireframing & Prototyping',
       'Design Systems',
     ],
+    image: '/images/6.jpg',
   },
   {
     title: 'Web Development',
@@ -37,5 +39,6 @@ export const services = [
       'CMS Integration',
       'API Integration',
     ],
+    image: '/images/1.jpg',
   },
 ];
