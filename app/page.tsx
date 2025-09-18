@@ -1,14 +1,18 @@
 'use client';
 
-import HeroSection from '@/components/sections/hero';
+import Hero from '@/components/sections/hero';
+import Services from '@/components/sections/services';
+import WorkProcess from '@/components/sections/work-process';
 
-const Home: React.FC = () => {
+const HomePage = () => {
   return (
-    <>
-      <HeroSection />
+    <div className='font-josefin'>
+      <Hero />
+      <Services />
+      <WorkProcess />
       <div className='w-full min-h-screen bg-white' />
-    </>
+    </div>
   );
 };
 
-export default Home;
+export default HomePage;
