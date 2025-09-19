@@ -6,7 +6,7 @@ const Services = () => {
       <div className='max-w-7xl mx-auto px-4'>
         <div className='grid grid-cols-2 gap-4 items-start'>
           <div className='flex items-center gap-2 text-purple-600'>
-            <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
+            <div className='w-1.5 h-1.5 rounded-full bg-purple-500' />
             <p className='text-lg font-medium'>Services</p>
           </div>
 
@@ -20,7 +20,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div key={index} className='grid grid-cols-3 gap-4'>
               <div className='col-span-1 space-y-4'>
-                <div className='w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold'>
+                <div className='w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold'>
                   {`0${index + 1}`}
                 </div>
                 <p className='text-5xl font-extrabold'>{service.title}</p>
