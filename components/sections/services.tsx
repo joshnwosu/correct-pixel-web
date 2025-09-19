@@ -4,13 +4,13 @@ const Services = () => {
   return (
     <section className='py-24'>
       <div className='max-w-7xl mx-auto px-4'>
-        <div className='grid grid-cols-2 gap-4 items-start'>
+        <div className='grid grid-cols-3 gap-4 items-start'>
           <div className='flex items-center gap-2 text-purple-600'>
             <div className='w-1.5 h-1.5 rounded-full bg-purple-500' />
             <p className='text-lg font-medium'>Services</p>
           </div>
 
-          <p className='text-4xl font-bold leading-relaxed text-muted-foreground'>
+          <p className='col-span-2 text-5xl font-bold leading-relaxed text-muted-foreground'>
             <span className='text-foreground'>We Deliver</span> - Comprehensive
             Solutions to help businesses Grow and thrive.
           </p>

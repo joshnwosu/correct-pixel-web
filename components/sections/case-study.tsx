@@ -1,5 +1,5 @@
 import { caseStudies } from '@/data/case-study';
-import { ArrowBigUp, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 const CaseStudy = () => {
   return (
@@ -11,7 +11,7 @@ const CaseStudy = () => {
             <p className='text-lg font-medium'>Case Study</p>
           </div>
 
-          <p className='text-4xl font-bold leading-relaxed'>
+          <p className='text-5xl font-bold leading-relaxed'>
             See Our{' '}
             <span className='italic text-muted-foreground'>All latest</span>
             <br /> Creative Work
