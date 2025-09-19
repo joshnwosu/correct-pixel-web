@@ -67,9 +67,7 @@ const Testimonials = () => {
           {visibleTestimonials.map((testimonial, index) => (
             <div
               key={`${currentIndex}-${index}`}
-              className={`bg-gray-100 rounded-lg p-8 transition-all duration-500 ${
-                index === 1 ? 'scale-105 opacity-100' : 'scale-95 opacity-60'
-              }`}
+              className={`bg-gray-100 rounded-lg p-8 transition-all duration-500`}
             >
               {/* Quote icon */}
               <div className='text-muted-foreground text-4xl mb-4 font-ultra'>

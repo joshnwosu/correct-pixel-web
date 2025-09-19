@@ -21,17 +21,17 @@ const Hero = () => {
       {/* <div className='absolute inset-0 bg-gradient-to-br from-purple-100 via-pink-50 to-orange-100' /> */}
 
       {/* Animated Gradient Orbs for depth */}
-      <div className='absolute inset-0'>
+      {/* <div className='absolute inset-0'>
         <div className='absolute top-20 left-20 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse' />
         <div className='absolute top-40 right-20 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000' />
         <div className='absolute bottom-20 left-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-4000' />
-      </div>
+      </div> */}
 
       {/* Glossy Blur Overlay */}
-      <div className='absolute inset-0 backdrop-blur-[2px]'>
+      {/* <div className='absolute inset-0 backdrop-blur-[2px]'>
         <div className='absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-white/20' />
         <div className='absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent' />
-      </div>
+      </div> */}
 
       <div className='relative flex justify-center items-center gap-20 pt-40 pb-20'>
         <div className='absolute -top-10 -right-100 flex items-center justify-center z-5 px-10 opacity-10 backdrop-blur-md'>
