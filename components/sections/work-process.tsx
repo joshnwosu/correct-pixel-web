@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { workProcess } from '@/data/work-process';
+import CustomButton from '../custom-button';
 
 const WorkProcess = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -59,15 +60,27 @@ const WorkProcess = () => {
   return (
     <section className='py-24'>
       <div className='max-w-7xl mx-auto px-4'>
-        <div className='max-w-xl space-y-4'>
-          <div className='flex items-center gap-2 text-purple-600'>
-            <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
-            <p className='text-lg font-medium'>Work Process</p>
+        <div className='grid grid-cols-2 gap-4'>
+          <div className='space-y-4'>
+            <div className='flex items-center gap-2 text-purple-600'>
+              <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
+              <p className='text-lg font-medium'>Work Process</p>
+            </div>
+
+            <p className='text-5xl font-bold leading-relaxed'>
+              Our Process design, and Deliver Simplified
+            </p>
           </div>
 
-          <p className='text-5xl font-bold leading-relaxed'>
-            Our Process design, and Deliver Simplified
-          </p>
+          <div className='space-y-6'>
+            <p className='text-muted-foreground text-lg leading-relaxed'>
+              We follow a simple, result driven process to bring your vision to
+              life. From understanding your goals to designing and developing
+              delivering real impact-on time and on point.
+            </p>
+
+            <CustomButton text="Let's Talk" className='mt-10 -rotate-15' />
+          </div>
         </div>
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20'>

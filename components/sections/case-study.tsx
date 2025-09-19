@@ -1,5 +1,6 @@
 import { caseStudies } from '@/data/case-study';
 import { ArrowUpRight } from 'lucide-react';
+import CustomButton from '../custom-button';
 
 const CaseStudy = () => {
   return (
@@ -11,11 +12,15 @@ const CaseStudy = () => {
             <p className='text-lg font-medium'>Case Study</p>
           </div>
 
-          <p className='text-5xl font-bold leading-relaxed'>
-            See Our{' '}
-            <span className='italic text-muted-foreground'>All latest</span>
-            <br /> Creative Work
-          </p>
+          <div>
+            <p className='text-5xl font-bold leading-relaxed'>
+              See Our{' '}
+              <span className='italic text-muted-foreground'>All latest</span>
+              <br /> Creative Work
+            </p>
+
+            <CustomButton text='View All' />
+          </div>
         </div>
 
         <div className='space-y-8'>
