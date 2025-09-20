@@ -165,7 +165,7 @@ export default function Header() {
             }}
           >
             <p className='text-sm text-gray-500'>
-              © 2024 Correct Pixel. All rights reserved.
+              © {new Date().getFullYear()} Correct Pixel. All rights reserved.
             </p>
           </div>
         </div>
