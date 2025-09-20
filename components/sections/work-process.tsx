@@ -58,33 +58,36 @@ const WorkProcess = () => {
   };
 
   return (
-    <section className='py-24'>
+    <section className='py-12 md:py-24'>
       <div className='max-w-7xl mx-auto px-4'>
-        <div className='grid grid-cols-2 gap-4'>
+        {/* Header Section */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4'>
           <div className='space-y-4'>
             <div className='flex items-center gap-2 text-purple-600'>
               <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
-              <p className='text-lg font-medium'>Work Process</p>
+              <p className='text-base md:text-lg font-medium'>Work Process</p>
             </div>
 
-            <p className='text-5xl font-bold leading-relaxed'>
+            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-relaxed'>
               Our Process design, and Deliver Simplified
             </p>
           </div>
 
           <div className='space-y-6'>
-            <p className='text-muted-foreground text-lg leading-relaxed'>
+            <p className='text-muted-foreground text-base md:text-lg leading-relaxed'>
               We follow a simple, result driven process to bring your vision to
               life. From understanding your goals to designing and developing
               delivering real impact-on time and on point.
             </p>
 
-            <CustomButton text="Let's Talk" className='mt-10 -rotate-15' />
+            <CustomButton text="Let's Talk" className='mt-6 md:mt-10' />
           </div>
         </div>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20'>
-          <div className='space-y-4'>
+        {/* Process Content */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 md:mt-20'>
+          {/* Process List */}
+          <div className='space-y-2 md:space-y-4 order-2 lg:order-1'>
             {workProcess.map((process, index) => (
               <motion.div
                 key={index}
@@ -105,11 +108,11 @@ const WorkProcess = () => {
                   />
                 )}
 
-                <div className='flex items-start gap-4 relative p-4'>
+                <div className='flex items-start gap-3 md:gap-4 relative p-3 md:p-4'>
                   {/* Vertical progress indicator on the left */}
                   <div className='relative'>
                     <motion.span
-                      className={`text-2xl font-bold transition-colors duration-300 ${
+                      className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${
                         activeIndex === index
                           ? 'text-purple-600'
                           : 'text-gray-300'
@@ -121,7 +124,7 @@ const WorkProcess = () => {
 
                     {activeIndex === index && (
                       <motion.div
-                        className='absolute left-0 top-10 w-1 h-20 bg-gray-200 rounded-full overflow-hidden'
+                        className='absolute left-0 top-8 md:top-10 w-1 h-16 md:h-20 bg-gray-200 rounded-full overflow-hidden hidden md:block'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                       >
@@ -138,7 +141,7 @@ const WorkProcess = () => {
 
                   <div className='flex-1'>
                     <h3
-                      className={`text-xl font-semibold mb-2 transition-colors duration-300 ${
+                      className={`text-lg md:text-xl font-semibold mb-1 md:mb-2 transition-colors duration-300 ${
                         activeIndex === index
                           ? 'text-gray-900'
                           : 'text-gray-600'
@@ -150,7 +153,7 @@ const WorkProcess = () => {
                     <AnimatePresence mode='wait'>
                       {activeIndex === index && (
                         <motion.p
-                          className='text-gray-600 leading-relaxed'
+                          className='text-sm md:text-base text-gray-600 leading-relaxed'
                           initial={{ height: 0, opacity: 0 }}
                           animate={{
                             height: 'auto',
@@ -180,8 +183,8 @@ const WorkProcess = () => {
           </div>
 
           {/* Image Section - Shuffle Stack */}
-          <div className='relative h-[500px] flex items-center justify-center'>
-            <div className='relative w-full max-w-md h-[400px]'>
+          <div className='relative h-[350px] md:h-[400px] lg:h-[500px] flex items-center justify-center order-1 lg:order-2'>
+            <div className='relative w-full max-w-sm md:max-w-md h-[300px] md:h-[350px] lg:h-[400px]'>
               {workProcess.map((process, index) => {
                 const stackStyle = getStackStyle(index);
                 const isActive = index === activeIndex;
@@ -201,13 +204,13 @@ const WorkProcess = () => {
                       <img
                         src={process.image}
                         alt={process.title}
-                        className='w-full h-full object-cover grayscale'
+                        className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300'
                       />
                     ) : (
                       <div className='w-full h-full bg-gradient-to-br from-purple-600/10 to-blue-600/10 flex items-center justify-center'>
-                        <div className='text-center'>
+                        <div className='text-center px-4'>
                           <motion.div
-                            className='text-6xl font-bold text-purple-600/30 mb-4'
+                            className='text-4xl md:text-5xl lg:text-6xl font-bold text-purple-600/30 mb-2 md:mb-4'
                             animate={
                               isActive
                                 ? {
@@ -223,10 +226,10 @@ const WorkProcess = () => {
                           >
                             {String(index + 1).padStart(2, '0')}
                           </motion.div>
-                          <h3 className='text-xl font-semibold text-gray-700'>
+                          <h3 className='text-lg md:text-xl font-semibold text-gray-700'>
                             {process.title}
                           </h3>
-                          <p className='text-sm text-gray-500 mt-2 px-8'>
+                          <p className='text-xs md:text-sm text-gray-500 mt-2 px-4 md:px-8'>
                             Click to view details
                           </p>
                         </div>
@@ -234,8 +237,8 @@ const WorkProcess = () => {
                     )}
 
                     {/* Card label */}
-                    <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4'>
-                      <p className='text-white font-semibold'>
+                    <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 md:p-4'>
+                      <p className='text-white font-semibold text-sm md:text-base'>
                         {process.title}
                       </p>
                     </div>
@@ -245,7 +248,7 @@ const WorkProcess = () => {
             </div>
 
             {/* Dots indicator */}
-            <div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 flex gap-2'>
+            <div className='absolute -bottom-8 md:bottom-0 left-1/2 transform -translate-x-1/2 flex gap-2'>
               {workProcess.map((_, index) => (
                 <button
                   key={index}
@@ -255,6 +258,7 @@ const WorkProcess = () => {
                       ? 'w-8 bg-purple-600'
                       : 'bg-gray-400 hover:bg-gray-600'
                   }`}
+                  aria-label={`Go to step ${index + 1}`}
                 />
               ))}
             </div>
