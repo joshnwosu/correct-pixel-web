@@ -56,7 +56,7 @@ const Hero = () => {
             <span className='inline-block'>Stand Out!</span>
           </h1>
 
-          <p className='text-base md:text-xl lg:text-2xl font-josefin font-normal mt-6 md:mt-8 lg:mt-12 text-center lg:text-left max-w-2xl mx-auto lg:mx-0'>
+          <p className='text-base md:text-xl lg:text-2xl font-normal mt-6 md:mt-8 lg:mt-12 text-center lg:text-left max-w-2xl mx-auto lg:mx-0'>
             Crafting pixel-perfect web experiences and stunning UI designs that
             captivate audiences and drive results. Your vision, executed
             flawlessly.

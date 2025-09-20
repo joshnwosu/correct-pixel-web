@@ -64,7 +64,7 @@ export default function Header() {
       >
         <nav className='flex justify-between items-center px-4 w-full h-full max-w-7xl mx-auto'>
           {/* Logo */}
-          <h1 className='text-xl md:text-2xl font-josefin text-black font-bold z-50'>
+          <h1 className='text-xl md:text-2xl text-black font-bold z-50'>
             <span className='mr-0.5'>Correct</span>
             <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-green-600'>
               Pixel.
