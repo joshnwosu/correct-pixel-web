@@ -8,7 +8,7 @@ import WorkProcess from '@/components/sections/work-process';
 
 const HomePage = () => {
   return (
-    <div className='font-josefin'>
+    <div className='font-alegreya'>
       <Hero />
       <Services />
       <WorkProcess />

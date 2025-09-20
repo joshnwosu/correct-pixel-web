@@ -5,6 +5,7 @@ import {
   Ultra,
   Josefin_Sans,
   Playwrite_US_Trad,
+  Alegreya,
 } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/layout/header';
@@ -26,7 +27,6 @@ const ultra = Ultra({
   subsets: ['latin'],
 });
 
-// Add Josefin Sans initialization
 const josefinSans = Josefin_Sans({
   weight: ['100', '200', '300', '400', '500', '600', '700'],
   variable: '--font-josefin',
@@ -36,6 +36,14 @@ const josefinSans = Josefin_Sans({
 const playwrite = Playwrite_US_Trad({
   weight: '400',
   variable: '--font-playwrite',
+});
+
+// Add Alegreya font initialization
+const alegreya = Alegreya({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-alegreya',
+  subsets: ['latin'],
+  style: ['normal', 'italic'], // Optional: include italic styles
 });
 
 export const metadata: Metadata = {
@@ -51,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ultra.variable} ${josefinSans.variable} ${playwrite.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ultra.variable} ${josefinSans.variable} ${playwrite.variable} ${alegreya.variable} antialiased`}
       >
         <Header />
         {children}

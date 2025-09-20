@@ -16,16 +16,18 @@ const Hero = () => {
   return (
     <section className='relative overflow-hidden pb-10'>
       {/* Background Text Elements */}
-      <div className='absolute -top-10 -right-10 md:-right-20 lg:-right-100 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
-        <h1 className='text-[80px] md:text-[140px] lg:text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
-          Correct
-        </h1>
-      </div>
+      <div className='font-ultra'>
+        <div className='absolute -top-10 -right-10 md:-right-20 lg:-right-100 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
+          <h1 className='text-[80px] md:text-[140px] lg:text-[200px] tracking-wider text-muted-foreground blur-xs'>
+            Correct
+          </h1>
+        </div>
 
-      <div className='absolute bottom-0 md:-bottom-10 -left-10 md:-left-20 lg:-left-50 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
-        <h1 className='text-[80px] md:text-[140px] lg:text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
-          Pixel
-        </h1>
+        <div className='absolute bottom-0 md:-bottom-10 -left-10 md:-left-20 lg:-left-50 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
+          <h1 className='text-[80px] md:text-[140px] lg:text-[200px] tracking-wider text-muted-foreground blur-xs'>
+            Pixel
+          </h1>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -37,7 +39,7 @@ const Hero = () => {
             <br />
             <span className='inline-flex flex-wrap justify-center lg:justify-start items-center gap-2 md:gap-3'>
               <motion.span
-                className='text-stroke font-ultra font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-3'
+                className='text-stroke font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-3'
                 style={{
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
