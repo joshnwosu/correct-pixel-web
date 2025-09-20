@@ -67,7 +67,7 @@ export default function Header() {
           <h1 className='text-xl md:text-2xl font-josefin text-black font-bold z-50'>
             <span className='mr-0.5'>Correct</span>
             <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-purple-600'>
-              pixel.
+              Pixel.
             </span>
           </h1>
 
