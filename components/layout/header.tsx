@@ -58,7 +58,7 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-josefin ${
           hasScrolled || isMobileMenuOpen
-            ? 'bg-white/95 backdrop-blur-md'
+            ? 'bg-white/70 backdrop-blur-md'
             : 'bg-transparent'
         }`}
       >
@@ -114,7 +114,7 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Positioned below header */}
       <div
-        className={`fixed top-16 left-0 right-0 bottom-0 bg-white/98 backdrop-blur-lg md:hidden transition-all duration-300 z-40 ${
+        className={`fixed top-16 left-0 right-0 bottom-0 bg-white/70 backdrop-blur-md md:hidden transition-all duration-300 z-40 font-josefin ${
           isMobileMenuOpen
             ? 'opacity-100 visible translate-y-0'
             : 'opacity-0 invisible -translate-y-4'
@@ -124,7 +124,7 @@ export default function Header() {
         <div className='flex flex-col h-full'>
           {/* Menu Items */}
           <div className='flex-1 flex items-center justify-center'>
-            <ul className='flex flex-col items-center gap-8 text-2xl font-medium'>
+            <ul className='flex flex-col items-center gap-4 text-5xl font-bold'>
               {navigationItems.map((link, index) => (
                 <li
                   key={link.href}
