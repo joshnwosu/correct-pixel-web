@@ -8,8 +8,8 @@ const CaseStudy = () => {
       <div className='max-w-7xl mx-auto px-4'>
         {/* Header Section */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-12 md:mb-16'>
-          <div className='flex items-center gap-2 text-purple-600'>
-            <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
+          <div className='flex items-center gap-2 text-green-600'>
+            <div className='w-1.5 h-1.5 rounded-full bg-green-600' />
             <p className='text-base md:text-lg font-medium'>Case Study</p>
           </div>
 
@@ -48,7 +48,7 @@ const CaseStudy = () => {
                     <h3 className='text-xl font-bold'>{study.title}</h3>
                   </div>
 
-                  <button className='w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white'>
+                  <button className='w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white'>
                     <ArrowUpRight className='w-5 h-5' />
                   </button>
                 </div>
@@ -78,7 +78,7 @@ const CaseStudy = () => {
                     <h3 className='text-xl font-bold'>{study.title}</h3>
                   </div>
 
-                  <button className='w-11 h-11 rounded-full bg-purple-500 flex items-center justify-center text-white'>
+                  <button className='w-11 h-11 rounded-full bg-green-600 flex items-center justify-center text-white'>
                     <ArrowUpRight className='w-5 h-5' />
                   </button>
                 </div>
@@ -120,7 +120,7 @@ const CaseStudy = () => {
                                   </h3>
                                 </div>
 
-                                <button className='w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white group-hover:bg-purple-600 transition-colors'>
+                                <button className='w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white group-hover:bg-green-600 transition-colors'>
                                   <ArrowUpRight />
                                 </button>
                               </div>
@@ -205,7 +205,7 @@ const CaseStudy = () => {
                                   </h3>
                                 </div>
 
-                                <button className='w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white group-hover:bg-purple-600 transition-colors'>
+                                <button className='w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white group-hover:bg-green-600 transition-colors'>
                                   <ArrowUpRight />
                                 </button>
                               </div>

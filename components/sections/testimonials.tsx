@@ -189,7 +189,7 @@ const Testimonials = () => {
                           className='w-full h-full object-cover'
                         />
                       ) : (
-                        <div className='w-full h-full bg-gradient-to-br from-purple-400 to-purple-600' />
+                        <div className='w-full h-full bg-gradient-to-br from-purple-400 to-green-600' />
                       )}
                     </div>
                     <div>
@@ -237,7 +237,7 @@ const Testimonials = () => {
                           className='w-full h-full object-cover'
                         />
                       ) : (
-                        <div className='w-full h-full bg-gradient-to-br from-purple-400 to-purple-600' />
+                        <div className='w-full h-full bg-gradient-to-br from-purple-400 to-green-600' />
                       )}
                     </div>
                     <div>
@@ -280,7 +280,7 @@ const Testimonials = () => {
           {/* Slider progress bar */}
           <div className='flex-1 h-1 bg-purple-100 rounded-full overflow-hidden'>
             <div
-              className='bg-purple-500 h-full transition-all duration-500 ease-out'
+              className='bg-green-600 h-full transition-all duration-500 ease-out'
               style={{ width: `${progressWidth}%` }}
             />
           </div>

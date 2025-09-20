@@ -66,7 +66,7 @@ export default function Header() {
           {/* Logo */}
           <h1 className='text-xl md:text-2xl font-josefin text-black font-bold z-50'>
             <span className='mr-0.5'>Correct</span>
-            <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-purple-600'>
+            <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-green-600'>
               Pixel.
             </span>
           </h1>
@@ -77,7 +77,7 @@ export default function Header() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className='hover:text-purple-600 transition-colors duration-200'
+                  className='hover:text-green-600 transition-colors duration-200'
                 >
                   {link.name}
                 </a>
@@ -142,7 +142,7 @@ export default function Header() {
                   <a
                     href={link.href}
                     onClick={handleLinkClick}
-                    className='block hover:text-purple-600 transition-colors duration-200 px-8 py-3'
+                    className='block hover:text-green-600 transition-colors duration-200 px-8 py-3'
                   >
                     {link.name}
                   </a>

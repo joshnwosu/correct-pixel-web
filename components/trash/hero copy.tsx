@@ -140,7 +140,7 @@ const HeroSection = () => {
 
       {/* Animated Gradient Orbs for depth */}
       <div className='absolute inset-0'>
-        <div className='absolute top-20 left-20 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse' />
+        <div className='absolute top-20 left-20 w-96 h-96 bg-green-600 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse' />
         <div className='absolute top-40 right-20 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000' />
         <div className='absolute bottom-20 left-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-4000' />
       </div>
@@ -192,7 +192,7 @@ const HeroSection = () => {
                 Brands <span className='inline-block'></span>
               </motion.span>
               <span
-                className='inline-block text-white px-6 rounded-xl shadow-2xl inset-0 bg-gradient-to-l from-purple-600  to-purple-300'
+                className='inline-block text-white px-6 rounded-xl shadow-2xl inset-0 bg-gradient-to-l from-green-600  to-purple-300'
                 style={{
                   transform:
                     'perspective(500px) rotateY(-35deg) rotateZ(-1deg)',

@@ -60,7 +60,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       >
         {/* Background shape for text button */}
         <motion.div
-          className='bg-purple-500 rounded-full h-12'
+          className='bg-green-600 rounded-full h-12'
           style={{ width: '140px' }}
           variants={{
             initial: { x: 0 },
@@ -71,7 +71,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
         {/* Connector blob - reduced height */}
         <motion.div
-          className='bg-purple-500'
+          className='bg-green-600'
           variants={{
             initial: { width: '20px', height: '8px', x: -18 },
             hover: { width: '30px', height: '16px', x: -12 },
@@ -81,7 +81,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
         {/* Background shape for icon button */}
         <motion.div
-          className='w-12 h-12 bg-purple-500 rounded-full'
+          className='w-12 h-12 bg-green-600 rounded-full'
           style={{ marginLeft: '-16px' }}
           variants={{
             initial: { x: 0 },

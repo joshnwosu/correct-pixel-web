@@ -7,8 +7,8 @@ const Team = () => {
         <div className='flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-20'>
           {/* Header Section */}
           <div className='space-y-4 lg:flex-shrink-0'>
-            <div className='flex items-center gap-2 text-purple-600'>
-              <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
+            <div className='flex items-center gap-2 text-green-600'>
+              <div className='w-1.5 h-1.5 rounded-full bg-green-600' />
               <p className='text-base md:text-lg font-medium'>Leadership</p>
             </div>
 
@@ -31,7 +31,7 @@ const Team = () => {
                       <p className='text-xl md:text-2xl font-bold'>
                         {member.name}
                       </p>
-                      <p className='text-sm text-purple-600 font-medium'>
+                      <p className='text-sm text-green-600 font-medium'>
                         {member.role}
                       </p>
                     </div>

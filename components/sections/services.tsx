@@ -6,8 +6,8 @@ const Services = () => {
       <div className='max-w-7xl mx-auto px-4'>
         {/* Header Section */}
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4 items-start'>
-          <div className='flex items-center gap-2 text-purple-600'>
-            <div className='w-1.5 h-1.5 rounded-full bg-purple-500' />
+          <div className='flex items-center gap-2 text-green-600'>
+            <div className='w-1.5 h-1.5 rounded-full bg-green-600' />
             <p className='text-base md:text-lg font-medium'>Services</p>
           </div>
 
@@ -25,7 +25,7 @@ const Services = () => {
               <div className='block lg:hidden'>
                 {/* Service Number and Title */}
                 <div className='space-y-4 mb-6'>
-                  <div className='w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold text-sm'>
+                  <div className='w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-sm'>
                     {`0${index + 1}`}
                   </div>
                   <p className='text-3xl md:text-4xl font-extrabold'>
@@ -46,8 +46,8 @@ const Services = () => {
                 <div className='space-y-4'>
                   <div className='flex items-center gap-4'>
                     <div className='flex items-center'>
-                      <div className='w-12 md:w-20 h-0.5 bg-purple-500' />
-                      <div className='w-3 h-3 rotate-45 bg-purple-500' />
+                      <div className='w-12 md:w-20 h-0.5 bg-green-600' />
+                      <div className='w-3 h-3 rotate-45 bg-green-600' />
                     </div>
                     <p className='text-sm md:text-base font-medium'>
                       {service.featureTitle}
@@ -70,7 +70,7 @@ const Services = () => {
               {/* Desktop Layout (lg and above) */}
               <div className='hidden lg:grid lg:grid-cols-3 gap-4'>
                 <div className='col-span-1 space-y-4'>
-                  <div className='w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold'>
+                  <div className='w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold'>
                     {`0${index + 1}`}
                   </div>
                   <p className='text-4xl xl:text-5xl font-extrabold'>
@@ -91,8 +91,8 @@ const Services = () => {
                     <div className='space-y-4'>
                       <div className='flex items-center gap-4'>
                         <div className='flex items-center'>
-                          <div className='w-20 h-0.5 bg-purple-500' />
-                          <div className='w-3 h-3 rotate-45 bg-purple-500' />
+                          <div className='w-20 h-0.5 bg-green-600' />
+                          <div className='w-3 h-3 rotate-45 bg-green-600' />
                         </div>
                         <p className='text-base font-medium'>
                           {service.featureTitle}

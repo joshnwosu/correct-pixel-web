@@ -76,8 +76,8 @@ const WorkProcess = () => {
         {/* Header Section */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4'>
           <div className='space-y-4'>
-            <div className='flex items-center gap-2 text-purple-600'>
-              <div className='w-1.5 h-1.5 rounded-full bg-purple-600' />
+            <div className='flex items-center gap-2 text-green-600'>
+              <div className='w-1.5 h-1.5 rounded-full bg-green-600' />
               <p className='text-base md:text-lg font-medium'>Work Process</p>
             </div>
 
@@ -124,10 +124,10 @@ const WorkProcess = () => {
                         className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300'
                       />
                     ) : (
-                      <div className='w-full h-full bg-gradient-to-br from-purple-600/10 to-blue-600/10 flex items-center justify-center'>
+                      <div className='w-full h-full bg-gradient-to-br from-green-600/10 to-blue-600/10 flex items-center justify-center'>
                         <div className='text-center px-4'>
                           <motion.div
-                            className='text-3xl md:text-5xl lg:text-6xl font-bold text-purple-600/30 mb-2 md:mb-4'
+                            className='text-3xl md:text-5xl lg:text-6xl font-bold text-green-600/30 mb-2 md:mb-4'
                             animate={
                               isActive
                                 ? {
@@ -172,7 +172,7 @@ const WorkProcess = () => {
                   onClick={() => handleItemClick(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     activeIndex === index
-                      ? 'w-8 bg-purple-600'
+                      ? 'w-8 bg-green-600'
                       : 'bg-gray-400 hover:bg-gray-600'
                   }`}
                   aria-label={`Go to step ${index + 1}`}
@@ -209,7 +209,7 @@ const WorkProcess = () => {
                     <motion.span
                       className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${
                         activeIndex === index
-                          ? 'text-purple-600'
+                          ? 'text-green-600'
                           : 'text-gray-300'
                       }`}
                       animate={{ scale: activeIndex === index ? 1.1 : 1 }}
@@ -225,7 +225,7 @@ const WorkProcess = () => {
                         animate={{ opacity: 1 }}
                       >
                         <motion.div
-                          className='h-full bg-purple-600'
+                          className='h-full bg-green-600'
                           initial={{ width: '0%' }}
                           animate={{ width: '100%' }}
                           transition={{ duration: 10, ease: 'linear' }}
@@ -242,7 +242,7 @@ const WorkProcess = () => {
                         animate={{ opacity: 1 }}
                       >
                         <motion.div
-                          className='w-full bg-purple-600'
+                          className='w-full bg-green-600'
                           initial={{ height: '0%' }}
                           animate={{ height: '100%' }}
                           transition={{ duration: 10, ease: 'linear' }}
