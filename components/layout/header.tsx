@@ -62,7 +62,7 @@ export default function Header() {
             : 'bg-transparent'
         }`}
       >
-        <nav className='flex justify-between items-center px-4 md:px-6 lg:px-8 w-full h-full max-w-7xl mx-auto'>
+        <nav className='flex justify-between items-center px-4 w-full h-full max-w-7xl mx-auto'>
           {/* Logo */}
           <h1 className='text-xl md:text-2xl font-josefin text-black font-bold z-50'>
             <span className='mr-0.5'>Correct</span>
