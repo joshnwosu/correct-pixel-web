@@ -84,23 +84,25 @@ const Testimonials = () => {
   const extendedTestimonials = getExtendedTestimonials();
 
   return (
-    <section className='py-24'>
-      <Marquee speed={20} className='pb-2'>
-        <div className='text-7xl md:text-9xl font-black whitespace-nowrap py-10'>
-          <span>Web Development</span>
-          <span className='mx-20 whitespace-nowrap [-webkit-text-stroke:2px_black] [-webkit-text-fill-color:transparent]'>
-            ✱
-          </span>
-          <span className='text-muted-foreground/20'>UI/UX Design</span>
-          <span className='mx-20'>✱</span>
-          <span>App Development</span>
-          <span className='mx-20 whitespace-nowrap [-webkit-text-stroke:2px_black] [-webkit-text-fill-color:transparent]'>
-            ✱
-          </span>
-          <span className='text-muted-foreground/20'>Branding</span>
-          <span className='mx-20'>✱</span>
-        </div>
-      </Marquee>
+    <section className='py-12'>
+      {!isMobile && (
+        <Marquee speed={20} className='pb-2'>
+          <div className='text-7xl md:text-9xl font-black whitespace-nowrap py-10'>
+            <span>Web Development</span>
+            <span className='mx-20 whitespace-nowrap [-webkit-text-stroke:2px_black] [-webkit-text-fill-color:transparent]'>
+              ✱
+            </span>
+            <span className='text-muted-foreground/20'>UI/UX Design</span>
+            <span className='mx-20'>✱</span>
+            <span>App Development</span>
+            <span className='mx-20 whitespace-nowrap [-webkit-text-stroke:2px_black] [-webkit-text-fill-color:transparent]'>
+              ✱
+            </span>
+            <span className='text-muted-foreground/20'>Branding</span>
+            <span className='mx-20'>✱</span>
+          </div>
+        </Marquee>
+      )}
 
       <div className='max-w-7xl mx-auto px-4'>
         {/* Header */}
