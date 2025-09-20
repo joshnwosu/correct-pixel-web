@@ -56,7 +56,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-josefin ${
+        className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-alegreya ${
           hasScrolled || isMobileMenuOpen
             ? 'bg-white/70 backdrop-blur-md'
             : 'bg-transparent'
@@ -114,7 +114,7 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Positioned below header */}
       <div
-        className={`fixed top-16 left-0 right-0 bottom-0 bg-white/70 backdrop-blur-md md:hidden transition-all duration-300 z-40 font-josefin ${
+        className={`fixed top-16 left-0 right-0 bottom-0 bg-white/70 backdrop-blur-md md:hidden transition-all duration-300 z-40 font-alegreya ${
           isMobileMenuOpen
             ? 'opacity-100 visible translate-y-0'
             : 'opacity-0 invisible -translate-y-4'
