@@ -22,7 +22,7 @@ const Hero = () => {
         </h1>
       </div>
 
-      <div className='absolute -bottom-10 -left-10 md:-left-20 lg:-left-50 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
+      <div className='absolute bottom-0 md:-bottom-10 -left-10 md:-left-20 lg:-left-50 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
         <h1 className='text-[80px] md:text-[140px] lg:text-[200px] font-ultra tracking-wider text-muted-foreground blur-xs'>
           Pixel
         </h1>
