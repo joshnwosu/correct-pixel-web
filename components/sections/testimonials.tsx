@@ -128,7 +128,7 @@ const Testimonials = () => {
 
   return (
     <section className='py-24'>
-      <Marquee speed={20} className='pb-20'>
+      <Marquee speed={20} className='pb-2'>
         <div className='text-7xl md:text-9xl font-black whitespace-nowrap py-10'>
           <span>Web Development</span>
           <span className='mx-20 whitespace-nowrap [-webkit-text-stroke:2px_black] [-webkit-text-fill-color:transparent]'>
@@ -148,7 +148,7 @@ const Testimonials = () => {
       <div className='max-w-7xl mx-auto px-4'>
         {/* Header */}
         <div className='text-center mb-12'>
-          <p className='text-5xl font-bold'>
+          <p className='text-3xl md:text-5xl font-bold'>
             Trusted by Brands Backed <br />
             by Stories
           </p>
@@ -168,14 +168,14 @@ const Testimonials = () => {
                 key={`desktop-${testimonial.id}-${index}`}
                 className='w-1/3 flex-shrink-0 px-3'
               >
-                <div className='bg-gray-100 rounded-lg p-8 h-full'>
+                <div className='bg-gray-100 rounded-lg p-8 h-full flex flex-col'>
                   {/* Quote icon */}
                   <div className='text-muted-foreground text-4xl mb-4 font-ultra'>
                     "
                   </div>
 
                   {/* Content */}
-                  <p className='text-gray-600 mb-6 line-clamp-4'>
+                  <p className='text-gray-600 mb-6 line-clamp-4 flex-1'>
                     {testimonial.content}
                   </p>
 
@@ -189,7 +189,7 @@ const Testimonials = () => {
                           className='w-full h-full object-cover'
                         />
                       ) : (
-                        <div className='w-full h-full bg-gradient-to-br from-purple-400 to-green-600' />
+                        <div className='w-full h-full bg-gray-200' />
                       )}
                     </div>
                     <div>
@@ -237,7 +237,7 @@ const Testimonials = () => {
                           className='w-full h-full object-cover'
                         />
                       ) : (
-                        <div className='w-full h-full bg-gradient-to-br from-purple-400 to-green-600' />
+                        <div className='w-full h-full bg-gray-200' />
                       )}
                     </div>
                     <div>
