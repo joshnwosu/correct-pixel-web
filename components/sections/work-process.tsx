@@ -5,7 +5,20 @@ import CustomButton from '../custom-button';
 
 const WorkProcess = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Function to reset the interval
   const resetInterval = () => {
@@ -32,27 +45,27 @@ const WorkProcess = () => {
     };
   }, []);
 
-  const handleItemClick = (index: React.SetStateAction<number>) => {
+  const handleItemClick = (index: number) => {
     setActiveIndex(index);
     resetInterval(); // Reset the 10-second timer when user clicks
   };
 
-  // Calculate stack positions for images
+  // Calculate stack positions for images - responsive version
   const getStackStyle = (index: number) => {
     const diff =
       (index - activeIndex + workProcess.length) % workProcess.length;
     const isActive = diff === 0;
     const zIndex = workProcess.length - diff;
 
-    // Calculate offset and scale based on position in stack
-    const offset = diff * 15; // pixels to offset each card
-    const scale = 1 - diff * 0.05; // scale down cards further back
-    const rotation = diff * 10; // slight rotation for depth effect
+    // Adjust values based on screen size
+    const offset = isMobile ? diff * 8 : diff * 15; // Smaller offset on mobile
+    const scale = 1 - diff * 0.05;
+    const rotation = isMobile ? diff * 2 : diff * 5; // Much less rotation on mobile
 
     return {
       zIndex,
       transform: `translateX(${offset}px) translateY(${offset}px) scale(${scale}) rotate(${rotation}deg)`,
-      opacity: diff < 3 ? 1 : 0, // Only show top 3 cards
+      opacity: diff < 3 ? 1 : 0,
       transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
     };
   };
@@ -85,9 +98,91 @@ const WorkProcess = () => {
         </div>
 
         {/* Process Content */}
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 md:mt-20'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 md:mt-20 items-center'>
+          {/* Image Section - Shuffle Stack (Mobile First) */}
+          <div className='relative h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center order-1'>
+            <div className='relative w-full max-w-[280px] md:max-w-sm lg:max-w-md h-[250px] md:h-[350px] lg:h-[400px]'>
+              {workProcess.map((process, index) => {
+                const stackStyle = getStackStyle(index);
+                const isActive = index === activeIndex;
+
+                return (
+                  <motion.div
+                    key={index}
+                    className='absolute inset-0 bg-white rounded-lg shadow-lg md:shadow-xl overflow-hidden cursor-pointer'
+                    style={{
+                      ...stackStyle,
+                      transformOrigin: 'center center',
+                    }}
+                    onClick={() => handleItemClick(index)}
+                    whileHover={isActive && !isMobile ? { scale: 1.02 } : {}}
+                  >
+                    {process.image ? (
+                      <img
+                        src={process.image}
+                        alt={process.title}
+                        className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300'
+                      />
+                    ) : (
+                      <div className='w-full h-full bg-gradient-to-br from-purple-600/10 to-blue-600/10 flex items-center justify-center'>
+                        <div className='text-center px-4'>
+                          <motion.div
+                            className='text-3xl md:text-5xl lg:text-6xl font-bold text-purple-600/30 mb-2 md:mb-4'
+                            animate={
+                              isActive
+                                ? {
+                                    y: [0, -10, 0],
+                                    transition: {
+                                      duration: 2,
+                                      repeat: Infinity,
+                                      ease: 'easeInOut',
+                                    },
+                                  }
+                                : {}
+                            }
+                          >
+                            {String(index + 1).padStart(2, '0')}
+                          </motion.div>
+                          <h3 className='text-base md:text-xl font-semibold text-gray-700'>
+                            {process.title}
+                          </h3>
+                          <p className='text-xs md:text-sm text-gray-500 mt-1 md:mt-2 px-2 md:px-8'>
+                            Click to view details
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Card label */}
+                    <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 md:p-4'>
+                      <p className='text-white font-semibold text-sm md:text-base'>
+                        {process.title}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Dots indicator */}
+            <div className='absolute -bottom-6 md:bottom-0 left-1/2 transform -translate-x-1/2 flex gap-2'>
+              {workProcess.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleItemClick(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    activeIndex === index
+                      ? 'w-8 bg-purple-600'
+                      : 'bg-gray-400 hover:bg-gray-600'
+                  }`}
+                  aria-label={`Go to step ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
           {/* Process List */}
-          <div className='space-y-2 md:space-y-4 order-2 lg:order-1'>
+          <div className='space-y-2 md:space-y-4 order-2'>
             {workProcess.map((process, index) => (
               <motion.div
                 key={index}
@@ -100,7 +195,7 @@ const WorkProcess = () => {
                 {/* Background gradient for active item */}
                 {activeIndex === index && (
                   <motion.div
-                    className='absolute inset-0 bg-gradient-to-r from-gray-100 to-transparent rounded-lg -z-10'
+                    className='absolute inset-0 bg-gradient-to-r from-purple-50 to-transparent rounded-lg -z-10'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -109,7 +204,7 @@ const WorkProcess = () => {
                 )}
 
                 <div className='flex items-start gap-3 md:gap-4 relative p-3 md:p-4'>
-                  {/* Vertical progress indicator on the left */}
+                  {/* Progress indicator */}
                   <div className='relative'>
                     <motion.span
                       className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${
@@ -122,9 +217,27 @@ const WorkProcess = () => {
                       {String(index + 1).padStart(2, '0')}
                     </motion.span>
 
+                    {/* Mobile progress bar - horizontal under the number */}
                     {activeIndex === index && (
                       <motion.div
-                        className='absolute left-0 top-8 md:top-10 w-1 h-16 md:h-20 bg-gray-200 rounded-full overflow-hidden hidden md:block'
+                        className='md:hidden absolute left-0 -bottom-1 w-8 h-0.5 bg-gray-200 rounded-full overflow-hidden'
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        <motion.div
+                          className='h-full bg-purple-600'
+                          initial={{ width: '0%' }}
+                          animate={{ width: '100%' }}
+                          transition={{ duration: 10, ease: 'linear' }}
+                          key={`progress-mobile-${index}-${Date.now()}`}
+                        />
+                      </motion.div>
+                    )}
+
+                    {/* Desktop progress bar - vertical */}
+                    {activeIndex === index && (
+                      <motion.div
+                        className='hidden md:block absolute left-0 top-10 w-1 h-20 bg-gray-200 rounded-full overflow-hidden'
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                       >
@@ -133,7 +246,7 @@ const WorkProcess = () => {
                           initial={{ height: '0%' }}
                           animate={{ height: '100%' }}
                           transition={{ duration: 10, ease: 'linear' }}
-                          key={`progress-${index}-${Date.now()}`}
+                          key={`progress-desktop-${index}-${Date.now()}`}
                         />
                       </motion.div>
                     )}
@@ -180,88 +293,6 @@ const WorkProcess = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-
-          {/* Image Section - Shuffle Stack */}
-          <div className='relative h-[350px] md:h-[400px] lg:h-[500px] flex items-center justify-center order-1 lg:order-2'>
-            <div className='relative w-full max-w-sm md:max-w-md h-[300px] md:h-[350px] lg:h-[400px]'>
-              {workProcess.map((process, index) => {
-                const stackStyle = getStackStyle(index);
-                const isActive = index === activeIndex;
-
-                return (
-                  <motion.div
-                    key={index}
-                    className='absolute inset-0 bg-white rounded-lg shadow-xl overflow-hidden cursor-pointer'
-                    style={{
-                      ...stackStyle,
-                      transformOrigin: 'center center',
-                    }}
-                    onClick={() => handleItemClick(index)}
-                    whileHover={isActive ? { scale: 1.02 } : {}}
-                  >
-                    {process.image ? (
-                      <img
-                        src={process.image}
-                        alt={process.title}
-                        className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300'
-                      />
-                    ) : (
-                      <div className='w-full h-full bg-gradient-to-br from-purple-600/10 to-blue-600/10 flex items-center justify-center'>
-                        <div className='text-center px-4'>
-                          <motion.div
-                            className='text-4xl md:text-5xl lg:text-6xl font-bold text-purple-600/30 mb-2 md:mb-4'
-                            animate={
-                              isActive
-                                ? {
-                                    y: [0, -10, 0],
-                                    transition: {
-                                      duration: 2,
-                                      repeat: Infinity,
-                                      ease: 'easeInOut',
-                                    },
-                                  }
-                                : {}
-                            }
-                          >
-                            {String(index + 1).padStart(2, '0')}
-                          </motion.div>
-                          <h3 className='text-lg md:text-xl font-semibold text-gray-700'>
-                            {process.title}
-                          </h3>
-                          <p className='text-xs md:text-sm text-gray-500 mt-2 px-4 md:px-8'>
-                            Click to view details
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Card label */}
-                    <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 md:p-4'>
-                      <p className='text-white font-semibold text-sm md:text-base'>
-                        {process.title}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Dots indicator */}
-            <div className='absolute -bottom-8 md:bottom-0 left-1/2 transform -translate-x-1/2 flex gap-2'>
-              {workProcess.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleItemClick(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    activeIndex === index
-                      ? 'w-8 bg-purple-600'
-                      : 'bg-gray-400 hover:bg-gray-600'
-                  }`}
-                  aria-label={`Go to step ${index + 1}`}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </div>

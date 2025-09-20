@@ -24,41 +24,23 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside or scrolling
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    const handleScroll = () => {
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    if (isMobileMenuOpen) {
-      document.addEventListener('click', handleClickOutside);
-      window.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isMobileMenuOpen]);
-
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      // Also prevent iOS bounce
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
       document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'auto';
     }
 
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.width = 'auto';
     };
   }, [isMobileMenuOpen]);
 
@@ -66,109 +48,138 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
+  const toggleMenu = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <header
-      className={`fixed w-full h-16 md:h-20 z-50 transition-all duration-300 font-josefin ${
-        hasScrolled ? 'bg-white/35 backdrop-blur-md' : 'bg-transparent'
-      }`}
-    >
-      <nav className='flex justify-between items-center px-4 md:px-6 lg:px-8 w-full h-full max-w-7xl mx-auto'>
-        {/* Logo */}
-        <h1 className='text-xl md:text-2xl font-josefin text-black font-bold z-50'>
-          <span className='mr-0.5'>Correct</span>
-          <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-purple-600'>
-            pixel.
-          </span>
-        </h1>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-josefin ${
+          hasScrolled || isMobileMenuOpen
+            ? 'bg-white/95 backdrop-blur-md'
+            : 'bg-transparent'
+        }`}
+      >
+        <nav className='flex justify-between items-center px-4 md:px-6 lg:px-8 w-full h-full max-w-7xl mx-auto'>
+          {/* Logo */}
+          <h1 className='text-xl md:text-2xl font-josefin text-black font-bold z-50'>
+            <span className='mr-0.5'>Correct</span>
+            <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-purple-600'>
+              pixel.
+            </span>
+          </h1>
 
-        {/* Desktop Navigation */}
-        <ul className='hidden md:flex gap-6 lg:gap-8 font-medium text-base lg:text-lg'>
-          {navigationItems.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className='hover:text-purple-600 transition-colors duration-200'
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+          {/* Desktop Navigation */}
+          <ul className='hidden md:flex gap-6 lg:gap-8 font-medium text-base lg:text-lg'>
+            {navigationItems.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className='hover:text-purple-600 transition-colors duration-200'
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsMobileMenuOpen(!isMobileMenuOpen);
-          }}
-          className='md:hidden z-50 p-2 rounded-lg hover:bg-gray-100/20 transition-colors'
-          aria-label='Toggle mobile menu'
-        >
-          {isMobileMenuOpen ? (
-            <X className='w-6 h-6 text-black' />
-          ) : (
-            <Menu className='w-6 h-6 text-black' />
-          )}
-        </button>
-
-        {/* Mobile Navigation Menu */}
-        <div
-          className={`fixed inset-0 bg-white/95 backdrop-blur-lg md:hidden transition-all duration-300 ${
-            isMobileMenuOpen
-              ? 'opacity-100 visible'
-              : 'opacity-0 invisible pointer-events-none'
-          }`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div
-            className={`flex flex-col items-center justify-center h-full transition-transform duration-300 ${
-              isMobileMenuOpen ? 'translate-y-0' : 'translate-y-10'
-            }`}
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className='md:hidden z-50 p-2 rounded-lg hover:bg-gray-100/20 transition-colors relative'
+            aria-label='Toggle mobile menu'
+            aria-expanded={isMobileMenuOpen}
           >
+            <div className='relative w-6 h-6'>
+              <Menu
+                className={`w-6 h-6 text-black absolute inset-0 transition-all duration-300 ${
+                  isMobileMenuOpen
+                    ? 'opacity-0 rotate-90'
+                    : 'opacity-100 rotate-0'
+                }`}
+              />
+              <X
+                className={`w-6 h-6 text-black absolute inset-0 transition-all duration-300 ${
+                  isMobileMenuOpen
+                    ? 'opacity-100 rotate-0'
+                    : 'opacity-0 -rotate-90'
+                }`}
+              />
+            </div>
+          </button>
+        </nav>
+      </header>
+
+      {/* Mobile Navigation Menu - Positioned below header */}
+      <div
+        className={`fixed top-16 left-0 right-0 bottom-0 bg-white/98 backdrop-blur-lg md:hidden transition-all duration-300 z-40 ${
+          isMobileMenuOpen
+            ? 'opacity-100 visible translate-y-0'
+            : 'opacity-0 invisible -translate-y-4'
+        }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        <div className='flex flex-col h-full'>
+          {/* Menu Items */}
+          <div className='flex-1 flex items-center justify-center'>
             <ul className='flex flex-col items-center gap-8 text-2xl font-medium'>
               {navigationItems.map((link, index) => (
                 <li
                   key={link.href}
-                  className={`transition-all duration-300 ${
+                  className={`transition-all duration-500 ${
                     isMobileMenuOpen
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-4'
                   }`}
                   style={{
                     transitionDelay: isMobileMenuOpen
-                      ? `${index * 100}ms`
+                      ? `${100 + index * 75}ms`
                       : '0ms',
                   }}
                 >
                   <a
                     href={link.href}
                     onClick={handleLinkClick}
-                    className='hover:text-purple-600 transition-colors duration-200 px-6 py-2'
+                    className='block hover:text-purple-600 transition-colors duration-200 px-8 py-3'
                   >
                     {link.name}
                   </a>
                 </li>
               ))}
             </ul>
+          </div>
 
-            {/* Mobile Menu Footer */}
-            <div
-              className={`absolute bottom-10 text-center transition-all duration-300 ${
-                isMobileMenuOpen
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-4'
-              }`}
-              style={{
-                transitionDelay: isMobileMenuOpen ? '400ms' : '0ms',
-              }}
-            >
-              <p className='text-sm text-gray-600'>
-                © 2024 Correct Pixel. All rights reserved.
-              </p>
-            </div>
+          {/* Mobile Menu Footer */}
+          <div
+            className={`pb-10 text-center transition-all duration-500 ${
+              isMobileMenuOpen
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-4'
+            }`}
+            style={{
+              transitionDelay: isMobileMenuOpen
+                ? `${100 + navigationItems.length * 75}ms`
+                : '0ms',
+            }}
+          >
+            <p className='text-sm text-gray-500'>
+              © 2024 Correct Pixel. All rights reserved.
+            </p>
           </div>
         </div>
-      </nav>
-    </header>
+      </div>
+
+      {/* Backdrop overlay for mobile menu */}
+      <div
+        className={`fixed inset-0 bg-black/20 md:hidden transition-opacity duration-300 z-30 ${
+          isMobileMenuOpen
+            ? 'opacity-100 visible'
+            : 'opacity-0 invisible pointer-events-none'
+        }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+    </>
   );
 }
