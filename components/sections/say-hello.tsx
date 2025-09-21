@@ -41,7 +41,7 @@ const SayHello = () => {
 
         {/* Right column - Contact Form Card */}
         <div className='order-1 lg:order-2'>
-          <div className='h-auto bg-white rounded-lg md:rounded-xl lg:shadow-2xl border p-10 lg:p-10'>
+          <div className='h-auto bg-white rounded-lg md:rounded-xl lg:shadow-2xl border p-5 lg:p-10'>
             <div className='h-full flex flex-col'>
               <h3 className='text-xl font-bold text-gray-900 mb-6'>
                 Schedule a Free Consultation
