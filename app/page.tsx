@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <div className='font-josefin relative'>
       {/* Background Pattern Overlay */}
-      <div className='absolute inset-0 opacity-5'>
+      <div className='absolute inset-0 opacity-5 z-0 pointer-events-none'>
         <div
           className='absolute inset-0'
           style={{
