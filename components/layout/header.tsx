@@ -56,7 +56,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-alegreya ${
+        className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-josefin ${
           hasScrolled || isMobileMenuOpen
             ? 'bg-white/70 backdrop-blur-md'
             : 'bg-transparent'

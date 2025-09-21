@@ -58,18 +58,24 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         className='absolute inset-0 flex items-center'
         style={{ filter: 'url(#gooey)', pointerEvents: 'none' }}
       >
-        {/* Background shape for text button */}
+        {/* Background shape for text button - DYNAMIC WIDTH */}
         <motion.div
-          className='bg-green-600 rounded-full h-12'
-          style={{ width: '140px' }}
+          className='bg-green-600 rounded-full h-12 px-8'
+          style={{
+            width: 'auto',
+            minWidth: 'max-content',
+          }}
           variants={{
             initial: { x: 0 },
             hover: { x: -5 },
           }}
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        />
+        >
+          {/* Invisible text to maintain proper width */}
+          <span className='opacity-0 font-bold whitespace-nowrap'>{text}</span>
+        </motion.div>
 
-        {/* Connector blob - reduced height */}
+        {/* Connector blob */}
         <motion.div
           className='bg-green-600'
           variants={{
@@ -98,7 +104,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       >
         {/* Text - no background, just text */}
         <motion.div
-          className='px-8 h-12 flex items-center justify-center font-bold text-white'
+          className='px-8 h-12 flex items-center justify-center font-bold text-white whitespace-nowrap'
           variants={{
             initial: { x: 0 },
             hover: { x: -5 },

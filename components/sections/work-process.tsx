@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { workProcess } from '@/data/work-process';
 import CustomButton from '../custom-button';
 
-const WorkProcess = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+const WorkProcess: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Check if mobile
   useEffect(() => {
-    const checkMobile = () => {
+    const checkMobile = (): void => {
       setIsMobile(window.innerWidth < 768);
     };
 
@@ -21,13 +21,11 @@ const WorkProcess = () => {
   }, []);
 
   // Function to reset the interval
-  const resetInterval = () => {
-    // Clear existing interval
+  const resetInterval = (): void => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
 
-    // Set new interval
     intervalRef.current = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % workProcess.length);
     }, 10000);
@@ -37,7 +35,6 @@ const WorkProcess = () => {
   useEffect(() => {
     resetInterval();
 
-    // Cleanup on unmount
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -45,22 +42,19 @@ const WorkProcess = () => {
     };
   }, []);
 
-  const handleItemClick = (index: number) => {
+  const handleItemClick = (index: number): void => {
     setActiveIndex(index);
-    resetInterval(); // Reset the 10-second timer when user clicks
+    resetInterval();
   };
 
-  // Calculate stack positions for images - responsive version
-  const getStackStyle = (index: number) => {
+  // Calculate stack positions for images
+  const getStackStyle = (index: number): React.CSSProperties => {
     const diff =
       (index - activeIndex + workProcess.length) % workProcess.length;
-    const isActive = diff === 0;
     const zIndex = workProcess.length - diff;
-
-    // Adjust values based on screen size
-    const offset = isMobile ? diff * 8 : diff * 15; // Smaller offset on mobile
+    const offset = isMobile ? diff * 8 : diff * 15;
     const scale = 1 - diff * 0.05;
-    const rotation = isMobile ? diff * 2 : diff * 5; // Much less rotation on mobile
+    const rotation = isMobile ? diff * 2 : diff * 5;
 
     return {
       zIndex,
@@ -98,8 +92,8 @@ const WorkProcess = () => {
         </div>
 
         {/* Process Content */}
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 md:mt-20 items-center'>
-          {/* Image Section - Shuffle Stack (Mobile First) */}
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 md:mt-20 items-start'>
+          {/* Image Section - Fixed Height Container */}
           <div className='relative h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center order-1'>
             <div className='relative w-full max-w-[280px] md:max-w-sm lg:max-w-md h-[250px] md:h-[350px] lg:h-[400px]'>
               {workProcess.map((process, index) => {
@@ -153,7 +147,6 @@ const WorkProcess = () => {
                       </div>
                     )}
 
-                    {/* Card label */}
                     <div className='absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 md:p-4'>
                       <p className='text-white font-semibold text-sm md:text-base'>
                         {process.title}
@@ -181,80 +174,65 @@ const WorkProcess = () => {
             </div>
           </div>
 
-          {/* Process List */}
-          <div className='space-y-2 md:space-y-4 order-2'>
+          {/* Process List - Fixed Height with Overflow */}
+          <div className='order-2'>
             {workProcess.map((process, index) => (
-              <motion.div
+              <div
                 key={index}
-                className='cursor-pointer relative overflow-hidden'
+                className='cursor-pointer relative overflow-hidden mb-2 md:mb-4'
                 onClick={() => handleItemClick(index)}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
               >
                 {/* Background gradient for active item */}
-                {activeIndex === index && (
-                  <motion.div
-                    className='absolute inset-0 bg-gradient-to-r from-purple-50 to-transparent rounded-lg -z-10'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r from-green-50 to-transparent rounded-lg -z-10 transition-opacity duration-300 ${
+                    activeIndex === index ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
 
                 <div className='flex items-start gap-3 md:gap-4 relative p-3 md:p-4'>
                   {/* Progress indicator */}
-                  <div className='relative'>
-                    <motion.span
-                      className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${
+                  <div className='relative flex-shrink-0'>
+                    <span
+                      className={`text-xl md:text-2xl font-bold transition-all duration-300 inline-block ${
                         activeIndex === index
-                          ? 'text-green-600'
-                          : 'text-gray-300'
+                          ? 'text-green-600 scale-110'
+                          : 'text-gray-300 scale-100'
                       }`}
-                      animate={{ scale: activeIndex === index ? 1.1 : 1 }}
                     >
                       {String(index + 1).padStart(2, '0')}
-                    </motion.span>
+                    </span>
 
-                    {/* Mobile progress bar - horizontal under the number */}
+                    {/* Progress bars */}
                     {activeIndex === index && (
-                      <motion.div
-                        className='md:hidden absolute left-0 -bottom-1 w-8 h-0.5 bg-gray-200 rounded-full overflow-hidden'
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        <motion.div
-                          className='h-full bg-green-600'
-                          initial={{ width: '0%' }}
-                          animate={{ width: '100%' }}
-                          transition={{ duration: 10, ease: 'linear' }}
-                          key={`progress-mobile-${index}-${Date.now()}`}
-                        />
-                      </motion.div>
-                    )}
+                      <>
+                        {/* Mobile progress bar */}
+                        <div className='md:hidden absolute left-0 -bottom-1 w-8 h-0.5 bg-gray-200 rounded-full overflow-hidden'>
+                          <motion.div
+                            className='h-full bg-green-600'
+                            initial={{ width: '0%' }}
+                            animate={{ width: '100%' }}
+                            transition={{ duration: 10, ease: 'linear' }}
+                            key={`progress-mobile-${index}-${Date.now()}`}
+                          />
+                        </div>
 
-                    {/* Desktop progress bar - vertical */}
-                    {activeIndex === index && (
-                      <motion.div
-                        className='hidden md:block absolute left-0 top-10 w-1 h-20 bg-gray-200 rounded-full overflow-hidden'
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        <motion.div
-                          className='w-full bg-green-600'
-                          initial={{ height: '0%' }}
-                          animate={{ height: '100%' }}
-                          transition={{ duration: 10, ease: 'linear' }}
-                          key={`progress-desktop-${index}-${Date.now()}`}
-                        />
-                      </motion.div>
+                        {/* Desktop progress bar */}
+                        <div className='hidden md:block absolute left-0 top-10 w-1 h-20 bg-gray-200 rounded-full overflow-hidden'>
+                          <motion.div
+                            className='w-full bg-green-600'
+                            initial={{ height: '0%' }}
+                            animate={{ height: '100%' }}
+                            transition={{ duration: 10, ease: 'linear' }}
+                            key={`progress-desktop-${index}-${Date.now()}`}
+                          />
+                        </div>
+                      </>
                     )}
                   </div>
 
-                  <div className='flex-1'>
+                  <div className='flex-1 min-w-0'>
                     <h3
-                      className={`text-lg md:text-xl font-semibold mb-1 md:mb-2 transition-colors duration-300 ${
+                      className={`text-lg md:text-xl font-semibold transition-colors duration-300 ${
                         activeIndex === index
                           ? 'text-gray-900'
                           : 'text-gray-600'
@@ -263,35 +241,19 @@ const WorkProcess = () => {
                       {process.title}
                     </h3>
 
-                    <AnimatePresence mode='wait'>
-                      {activeIndex === index && (
-                        <motion.p
-                          className='text-sm md:text-base text-gray-600 leading-relaxed'
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{
-                            height: 'auto',
-                            opacity: 1,
-                            transition: {
-                              height: { duration: 0.4, ease: 'easeOut' },
-                              opacity: { duration: 0.3, delay: 0.1 },
-                            },
-                          }}
-                          exit={{
-                            height: 0,
-                            opacity: 0,
-                            transition: {
-                              height: { duration: 0.3, ease: 'easeIn' },
-                              opacity: { duration: 0.2 },
-                            },
-                          }}
-                        >
-                          {process.description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
+                    {/* Always render description with opacity transition */}
+                    <p
+                      className={`text-sm md:text-base text-gray-600 leading-relaxed mt-1 md:mt-2 transition-all duration-300 ${
+                        activeIndex === index
+                          ? 'opacity-100 max-h-40'
+                          : 'opacity-0 max-h-0 overflow-hidden'
+                      }`}
+                    >
+                      {process.description}
+                    </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
