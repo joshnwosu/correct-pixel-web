@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 
 export const navigationItems = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
+  { name: 'About Us', href: '/about' },
+  { name: 'Our Team', href: '/our-team' },
   { name: 'Services', href: '/services' },
   { name: 'Contact', href: '/contact' },
 ];

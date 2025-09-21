@@ -75,26 +75,26 @@ const WorkProcess: React.FC = () => {
               <p className='text-base md:text-lg font-medium'>Work Process</p>
             </div>
 
-            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-relaxed'>
+            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-snug'>
               Our Process design, and Deliver Simplified
             </p>
           </div>
 
           <div className='space-y-6'>
-            <p className='text-muted-foreground text-base md:text-lg leading-relaxed'>
+            <p className='text-muted-foreground text-base md:text-xl leading-relaxed'>
               We follow a simple, result driven process to bring your vision to
               life. From understanding your goals to designing and developing
               delivering real impact-on time and on point.
             </p>
 
-            <CustomButton text="Let's Talk" className='mt-6 md:mt-10' />
+            <CustomButton text="Let's Talk" />
           </div>
         </div>
 
         {/* Process Content */}
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-12 md:mt-20 items-start'>
           {/* Image Section - Fixed Height Container */}
-          <div className='relative h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center order-1'>
+          <div className='relative h-[300px] md:h-[400px] lg:h-[500px] flex items-center justify-center md:block order-1'>
             <div className='relative w-full max-w-[280px] md:max-w-sm lg:max-w-md h-[250px] md:h-[350px] lg:h-[400px]'>
               {workProcess.map((process, index) => {
                 const stackStyle = getStackStyle(index);

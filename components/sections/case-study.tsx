@@ -13,8 +13,8 @@ const CaseStudy = () => {
             <p className='text-base md:text-lg font-medium'>Case Study</p>
           </div>
 
-          <div>
-            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-relaxed'>
+          <div className='space-y-4'>
+            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-snug'>
               See Our{' '}
               <span className='italic text-muted-foreground'>All latest</span>
               <br className='hidden md:block' /> Creative Work

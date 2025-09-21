@@ -1,4 +1,5 @@
 import { services } from '@/data/service';
+import CustomButton from '../custom-button';
 
 const Services = () => {
   return (
@@ -11,14 +12,20 @@ const Services = () => {
             <p className='text-base md:text-lg font-medium'>Services</p>
           </div>
 
-          <p className='lg:col-span-2 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-relaxed text-muted-foreground'>
-            <span className='text-foreground'>We Deliver</span> - Comprehensive
-            Solutions to help businesses Grow and thrive.
-          </p>
+          <div className='space-y-4 lg:col-span-2'>
+            <p className=' text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-snug text-muted-foreground'>
+              <span className='text-foreground'>We Deliver</span> -
+              Comprehensive Solutions to help businesses Grow and thrive.
+            </p>
+            <CustomButton
+              text='All Services'
+              className='rotate-0 lg:-rotate-12 hover:rotate-0'
+            />
+          </div>
         </div>
 
         {/* Services List */}
-        <div className='mt-12 md:mt-16 space-y-12 md:space-y-20'>
+        <div className='mt-12 md:mt-16 space-y-10'>
           {services.map((service, index) => (
             <div key={index} className='space-y-6'>
               {/* Mobile Layout */}

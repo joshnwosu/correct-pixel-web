@@ -27,7 +27,7 @@ export const services = [
     image: '/images/6.jpg',
   },
   {
-    title: 'Web Development',
+    title: 'Development',
     description: 'Engage your audience',
     icon: 'code',
     featureTitle: 'Development',
