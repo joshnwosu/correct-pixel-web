@@ -14,7 +14,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className='relative overflow-hidden pb-10'>
+    <section className='relative overflow-hidden pb-10 py-20'>
       {/* Background Text Elements */}
       <div className='font-ultra'>
         <div className='absolute -top-10 -right-10 md:-right-20 lg:-right-100 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
@@ -34,21 +34,21 @@ const Hero = () => {
       <div className='relative flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-20 pt-20 md:pt-32 lg:pt-40 pb-20 px-4'>
         {/* Text Content */}
         <div className='relative z-10 w-full max-w-full lg:max-w-3xl space-y-4 md:space-y-6 p-0 md:p-4'>
-          <h1 className='relative z-10 text-black font-ultra font-medium text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center lg:text-left'>
+          <h1 className='relative z-10 text-black font-medium text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center lg:text-left font-playwrite'>
             <span className='inline-block'>We Build</span>
             <br />
-            <span className='inline-flex flex-wrap justify-center lg:justify-start items-center gap-2 md:gap-3'>
+            <span className='inline-flex flex-wrap justify-center lg:justify-start items-center gap-2 md:gap-3 pb-3'>
               <motion.span
-                className='text-stroke font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-3'
+                className='text-stroke font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-2 font-ultra'
                 style={{
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
                   WebkitTextStroke: '2px black',
                   WebkitTextFillColor: 'transparent',
                 }}
-                initial={{ width: 0 }}
-                animate={{ width: 'auto' }}
-                transition={{ duration: 2, ease: 'easeInOut' }}
+                // initial={{ width: 0 }}
+                // animate={{ width: 'auto' }}
+                // transition={{ duration: 2, ease: 'easeInOut' }}
               >
                 Brands
               </motion.span>
