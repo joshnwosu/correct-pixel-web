@@ -31,20 +31,26 @@ const WorkProcess: React.FC = () => {
     }, 10000);
   };
 
-  // Setup initial interval
+  // Setup initial interval - only on desktop
   useEffect(() => {
-    resetInterval();
+    // Only auto-rotate on desktop
+    if (!isMobile) {
+      resetInterval();
+    }
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
     };
-  }, []);
+  }, [isMobile]);
 
   const handleItemClick = (index: number): void => {
     setActiveIndex(index);
-    resetInterval();
+    // Only reset interval on desktop
+    if (!isMobile) {
+      resetInterval();
+    }
   };
 
   // Calculate stack positions for images
@@ -75,19 +81,19 @@ const WorkProcess: React.FC = () => {
               <p className='text-base md:text-lg font-medium'>Work Process</p>
             </div>
 
-            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-snug'>
+            <p className='text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-relaxed'>
               Our Process design, and Deliver Simplified
             </p>
           </div>
 
           <div className='space-y-6'>
-            <p className='text-muted-foreground text-base md:text-xl leading-relaxed'>
+            <p className='text-muted-foreground text-base md:text-lg leading-relaxed'>
               We follow a simple, result driven process to bring your vision to
               life. From understanding your goals to designing and developing
               delivering real impact-on time and on point.
             </p>
 
-            <CustomButton text="Let's Talk" />
+            <CustomButton text="Let's Talk" className='mt-6 md:mt-10' />
           </div>
         </div>
 
