@@ -10,7 +10,7 @@ import {
 
 export const navigationItems = [
   { name: 'About Us', href: '/about' },
-  { name: 'Our Team', href: '/our-team' },
+  { name: 'Our Work', href: '/our-work' },
   { name: 'Services', href: '/services' },
   { name: 'Contact', href: '/contact' },
 ];
@@ -33,10 +33,10 @@ export const serviceLinks = [
 
 export const companyLinks = [
   { name: 'About Us', href: '/about' },
-  { name: 'Our Team', href: '/team' },
-  { name: 'Careers', href: '/careers' },
+  { name: 'Our Work', href: '/our-work' },
+  { name: 'Services', href: '/services' },
+  { name: 'Contact', href: '/contact' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Privacy Policy', href: '/privacy' },
 ];
 
 export const contactInfo = {

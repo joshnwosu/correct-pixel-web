@@ -5,6 +5,7 @@ import {
   serviceLinks,
   socialLinks,
 } from '@/data/navigation';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -23,7 +24,7 @@ export default function Footer() {
             </p>
             <div className='flex gap-3 pt-2'>
               {socialLinks.map((social) => (
-                <a
+                <Link
                   key={social.name}
                   href={social.href}
                   className='w-10 h-10 bg-[#222222] rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-200'
@@ -32,7 +33,7 @@ export default function Footer() {
                   rel='noopener noreferrer'
                 >
                   <social.icon className='w-5 h-5 text-white' />
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -46,12 +47,12 @@ export default function Footer() {
             <ul className='space-y-6'>
               {serviceLinks.map((service) => (
                 <li key={service.name}>
-                  <a
+                  <Link
                     href={service.href}
                     className='text-white hover:text-green-400 transition-colors duration-200 text-md'
                   >
                     {service.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -66,12 +67,12 @@ export default function Footer() {
             <ul className='space-y-6'>
               {companyLinks.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <Link
                     href={link.href}
                     className='text-white hover:text-green-400 transition-colors duration-200 text-md'
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -96,21 +97,21 @@ export default function Footer() {
               </div>
               <div className='flex items-center gap-3'>
                 <Phone className='w-4 h-4 text-green-400 flex-shrink-0' />
-                <a
+                <Link
                   href={`tel:${contactInfo.phone.replace(/\D/g, '')}`}
                   className='text-gray-400 hover:text-green-400 transition-colors duration-200 text-md'
                 >
                   {contactInfo.phone}
-                </a>
+                </Link>
               </div>
               <div className='flex items-center gap-3'>
                 <Mail className='w-4 h-4 text-green-400 flex-shrink-0' />
-                <a
+                <Link
                   href={`mailto:${contactInfo.email}`}
                   className='text-gray-400 hover:text-green-400 transition-colors duration-200 text-md'
                 >
                   {contactInfo.email}
-                </a>
+                </Link>
               </div>
             </div>
           </div>

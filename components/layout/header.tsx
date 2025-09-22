@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { navigationItems } from '@/data/navigation';
+import Link from 'next/link';
 
 export default function Header() {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -64,23 +65,26 @@ export default function Header() {
       >
         <nav className='flex justify-between items-center px-4 w-full h-full max-w-7xl mx-auto'>
           {/* Logo */}
-          <h1 className='text-xl md:text-2xl text-black font-bold z-50'>
+          <Link
+            href='/'
+            className='text-xl md:text-2xl text-black font-bold z-50'
+          >
             <span className='mr-0.5'>Correct</span>
             <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-green-600'>
               Pixel.
             </span>
-          </h1>
+          </Link>
 
           {/* Desktop Navigation */}
           <ul className='hidden md:flex gap-6 lg:gap-8 font-medium text-base lg:text-lg'>
             {navigationItems.map((link) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   className='hover:text-green-600 transition-colors duration-200'
                 >
                   {link.name}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -139,13 +143,13 @@ export default function Header() {
                       : '0ms',
                   }}
                 >
-                  <a
+                  <Link
                     href={link.href}
                     onClick={handleLinkClick}
                     className='block hover:text-green-600 transition-colors duration-200 px-8 py-3'
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
