@@ -34,12 +34,12 @@ const Hero = () => {
       <div className='relative flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-20 pt-20 md:pt-32 lg:pt-40 pb-20 px-4'>
         {/* Text Content */}
         <div className='relative z-10 w-full max-w-full lg:max-w-3xl space-y-4 md:space-y-6 p-0 md:p-4'>
-          <h1 className='relative z-10 text-black font-medium text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center lg:text-left font-playwrite'>
+          <h1 className='relative z-10 text-black font-bold text-4xl md:text-5xl lg:text-6xl xl:text-8xl text-center lg:text-left font-josefin'>
             <span className='inline-block'>We Build</span>
             <br />
             <span className='inline-flex flex-wrap justify-center lg:justify-start items-center gap-2 md:gap-3 pb-3'>
               <motion.span
-                className='text-stroke font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-2 font-ultra'
+                className='text-stroke font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-2 font-ultra text-mu'
                 style={{
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
