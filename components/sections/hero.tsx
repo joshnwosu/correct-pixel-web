@@ -16,7 +16,7 @@ const Hero = () => {
   return (
     <section className='relative overflow-hidden pb-10 py-20'>
       {/* Background Text Elements */}
-      <div className='font-ultra'>
+      <div className='font-ultra pointer-events-none'>
         <div className='absolute top-10 -right-50 md:-right-20 lg:-right-100 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
           <h1 className='text-[80px] md:text-[140px] lg:text-[200px] tracking-wider text-muted-foreground blur-xs'>
             Correct

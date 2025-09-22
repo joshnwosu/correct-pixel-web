@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { navigationItems } from '@/data/navigation';
 import Link from 'next/link';
@@ -8,6 +8,7 @@ import Link from 'next/link';
 export default function Header() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,20 +29,36 @@ export default function Header() {
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
+      // Save current scroll position to ref
+      scrollPositionRef.current = window.scrollY;
+
+      // Apply styles to prevent scrolling while maintaining position
       document.body.style.overflow = 'hidden';
-      // Also prevent iOS bounce
       document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPositionRef.current}px`;
       document.body.style.width = '100%';
+      document.body.style.height = '100%';
     } else {
-      document.body.style.overflow = 'unset';
-      document.body.style.position = 'unset';
-      document.body.style.width = 'auto';
+      // Reset styles first
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+
+      // Restore scroll position after styles are reset
+      if (scrollPositionRef.current > 0) {
+        window.scrollTo(0, scrollPositionRef.current);
+      }
     }
 
+    // Cleanup function
     return () => {
-      document.body.style.overflow = 'unset';
-      document.body.style.position = 'unset';
-      document.body.style.width = 'auto';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
     };
   }, [isMobileMenuOpen]);
 
@@ -49,7 +66,7 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
-  const toggleMenu = (e: { stopPropagation: () => void }) => {
+  const toggleMenu = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
