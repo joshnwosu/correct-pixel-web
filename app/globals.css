@@ -123,6 +123,16 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #fbfbfa;
+    background-image: radial-gradient(#d7d7d2 1.2px, transparent 1.2px);
+    background-size: 22px 22px;
+  }
 }
 
 @layer utilities {

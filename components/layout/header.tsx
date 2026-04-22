@@ -74,31 +74,29 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 w-full h-16 md:h-20 z-50 transition-all duration-300 font-josefin ${
-          hasScrolled || isMobileMenuOpen
-            ? 'bg-white/70 backdrop-blur-md'
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 font-josefin ${
+          hasScrolled || isMobileMenuOpen ? 'py-3' : 'py-5'
         }`}
       >
-        <nav className='flex justify-between items-center px-4 w-full h-full max-w-7xl mx-auto'>
+        <nav className='flex justify-between items-center mx-4 max-w-7xl xl:mx-auto rounded-lg border-2 border-black bg-white px-4 h-16 shadow-[5px_5px_0_#111]'>
           {/* Logo */}
           <Link
             href='/'
-            className='text-xl md:text-2xl text-black font-bold z-50'
+            className='text-lg md:text-xl text-black font-black z-50 tracking-tight uppercase'
           >
             <span className='mr-0.5'>Correct</span>
-            <span className='px-1.5 md:px-2 pb-1 md:pb-1.5 rounded-sm text-green-600'>
+            <span className='px-1.5 md:px-2 py-1 rounded bg-[#ffe45c] border-2 border-black'>
               Pixel.
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className='hidden md:flex gap-6 lg:gap-8 font-medium text-base lg:text-lg'>
+          <ul className='hidden md:flex items-center gap-1 font-black text-sm uppercase'>
             {navigationItems.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className='hover:text-green-600 transition-colors duration-200'
+                  className='block rounded px-3 py-2 hover:bg-black hover:text-white transition-colors duration-200'
                 >
                   {link.name}
                 </Link>
@@ -106,10 +104,17 @@ export default function Header() {
             ))}
           </ul>
 
+          <Link
+            href='/#contact'
+            className='hidden md:inline-flex h-10 items-center rounded-md border-2 border-black bg-[#9ef37f] px-4 text-xs font-black uppercase tracking-wide shadow-[3px_3px_0_#111] transition-transform hover:-translate-y-0.5'
+          >
+            Start a Project
+          </Link>
+
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className='md:hidden z-50 p-2 rounded-lg hover:bg-gray-100/20 transition-colors relative'
+            className='md:hidden z-50 p-2 rounded border-2 border-black bg-white transition-colors relative'
             aria-label='Toggle mobile menu'
             aria-expanded={isMobileMenuOpen}
           >
@@ -135,7 +140,7 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Positioned below header */}
       <div
-        className={`fixed top-16 left-0 right-0 bottom-0 bg-white/70 backdrop-blur-md md:hidden transition-all duration-300 z-40 font-alegreya ${
+        className={`fixed top-24 left-4 right-4 bottom-4 rounded-lg border-2 border-black bg-white md:hidden transition-all duration-300 z-40 font-alegreya shadow-[6px_6px_0_#111] ${
           isMobileMenuOpen
             ? 'opacity-100 visible translate-y-0'
             : 'opacity-0 invisible -translate-y-4'
@@ -145,7 +150,7 @@ export default function Header() {
         <div className='flex flex-col h-full'>
           {/* Menu Items */}
           <div className='flex-1 flex items-center justify-center'>
-            <ul className='flex flex-col items-center gap-4 text-5xl font-bold'>
+            <ul className='flex flex-col items-center gap-4 text-4xl font-black'>
               {navigationItems.map((link, index) => (
                 <li
                   key={link.href}

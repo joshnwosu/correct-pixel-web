@@ -1,127 +1,67 @@
-import { services } from '@/data/service';
 import CustomButton from '../custom-button';
+import { services } from '@/data/service';
 
 const Services = () => {
   return (
-    <section className='py-12 md:py-24'>
-      <div className='max-w-7xl mx-auto px-4'>
-        {/* Header Section */}
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4 items-start'>
-          <div className='flex items-center gap-2 text-green-600'>
-            <div className='w-1.5 h-1.5 rounded-full bg-green-600' />
-            <p className='text-base md:text-lg font-medium'>Services</p>
-          </div>
-
-          <div className='space-y-4 lg:col-span-2'>
-            <p className=' text-3xl md:text-4xl lg:text-5xl font-bold leading-tight md:leading-snug text-muted-foreground'>
-              <span className='text-foreground'>We Deliver</span> -
-              Comprehensive Solutions to help businesses Grow and thrive.
-            </p>
-            <CustomButton
-              text='All Services'
-              className='rotate-0 lg:-rotate-12 hover:rotate-0'
-            />
+    <section className='px-4 py-10 md:py-14' id='services'>
+      <div className='mx-auto max-w-7xl'>
+        <div className='mb-5 rounded-lg border-2 border-black bg-white p-5 shadow-[6px_6px_0_#111] md:p-6'>
+          <div className='flex items-start justify-between gap-4'>
+            <div>
+              <h2 className='text-3xl font-black md:text-5xl'>Services</h2>
+              <p className='mt-2 text-lg font-semibold italic text-neutral-500'>
+                &quot;Creative and technical builds for sharper launches&quot;
+              </p>
+            </div>
+            <span className='rounded-md bg-black px-3 py-2 text-lg font-black text-white'>
+              {services.length}
+            </span>
           </div>
         </div>
 
-        {/* Services List */}
-        <div className='mt-12 md:mt-16 space-y-10'>
+        <div className='grid grid-cols-1 gap-5 lg:grid-cols-3'>
           {services.map((service, index) => (
-            <div key={index} className='space-y-6'>
-              {/* Mobile Layout */}
-              <div className='block lg:hidden'>
-                {/* Service Number and Title */}
-                <div className='space-y-4 mb-6'>
-                  <div className='w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-sm'>
-                    {`0${index + 1}`}
-                  </div>
-                  <p className='text-3xl md:text-4xl font-extrabold'>
-                    {service.title}
-                  </p>
-                </div>
-
-                {/* Image */}
-                <div className='w-full h-64 md:h-80 bg-accent rounded-md overflow-hidden mb-6'>
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className='w-full h-full object-cover hover:scale-105 transition-transform duration-300 grayscale hover:grayscale-0'
-                  />
-                </div>
-
-                {/* Features */}
-                <div className='space-y-4'>
-                  <div className='flex items-center gap-4'>
-                    <div className='flex items-center'>
-                      <div className='w-12 md:w-20 h-0.5 bg-green-600' />
-                      <div className='w-3 h-3 rotate-45 bg-green-600' />
-                    </div>
-                    <p className='text-sm md:text-base font-medium'>
-                      {service.featureTitle}
-                    </p>
-                  </div>
-
-                  <ul className='list-disc list-inside space-y-2 pl-4 md:pl-8'>
-                    {service.features.map((feature, fIndex) => (
-                      <li
-                        key={fIndex}
-                        className='text-sm md:text-base text-muted-foreground'
-                      >
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Desktop Layout (lg and above) */}
-              <div className='hidden lg:grid lg:grid-cols-3 gap-4'>
-                <div className='col-span-1 space-y-4'>
-                  <div className='w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold'>
-                    {`0${index + 1}`}
-                  </div>
-                  <p className='text-4xl xl:text-5xl font-extrabold'>
-                    {service.title}
-                  </p>
-                </div>
-
-                <div className='col-span-2 rounded-md flex gap-4'>
-                  <div className='w-72 xl:w-md h-64 bg-accent rounded-md flex-shrink-0 overflow-hidden'>
+            <article
+              key={service.title}
+              className='rounded-lg border-2 border-black bg-white p-5 shadow-[6px_6px_0_#111]'
+            >
+              <div className='mb-5 flex items-center justify-between border-b-2 border-dashed border-black/20 pb-4'>
+                <div className='flex items-center gap-4'>
+                  <span className='font-mono text-sm font-black text-neutral-500'>
+                    {index + 1}.
+                  </span>
+                  <div className='h-10 w-10 overflow-hidden rounded border-2 border-black'>
                     <img
                       src={service.image}
-                      alt={service.title}
-                      className='w-full h-full object-cover hover:scale-105 transition-transform duration-300 grayscale hover:grayscale-0'
+                      alt=''
+                      className='h-full w-full object-cover grayscale'
                     />
                   </div>
-
-                  <div className='flex-1 flex flex-col justify-end'>
-                    <div className='space-y-4'>
-                      <div className='flex items-center gap-4'>
-                        <div className='flex items-center'>
-                          <div className='w-20 h-0.5 bg-green-600' />
-                          <div className='w-3 h-3 rotate-45 bg-green-600' />
-                        </div>
-                        <p className='text-base font-medium'>
-                          {service.featureTitle}
-                        </p>
-                      </div>
-
-                      <ul className='list-disc list-inside space-y-2 pl-24'>
-                        {service.features.map((feature, fIndex) => (
-                          <li
-                            key={fIndex}
-                            className='text-base text-muted-foreground'
-                          >
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+                  <h3 className='text-2xl font-black'>{service.title}</h3>
                 </div>
+                <span className='text-neutral-300'>&gt;</span>
               </div>
-            </div>
+
+              <p className='mb-5 min-h-12 font-semibold italic text-neutral-500'>
+                &quot;{service.description}&quot;
+              </p>
+
+              <ol className='space-y-3'>
+                {service.features.slice(0, 5).map((feature, featureIndex) => (
+                  <li key={feature} className='flex items-center gap-3'>
+                    <span className='w-7 font-mono text-sm font-black text-neutral-400'>
+                      {featureIndex + 1}.
+                    </span>
+                    <span className='font-black'>{feature}</span>
+                  </li>
+                ))}
+              </ol>
+            </article>
           ))}
+        </div>
+
+        <div className='mt-5 flex justify-center'>
+          <CustomButton text='Start With One' href='#contact' />
         </div>
       </div>
     </section>

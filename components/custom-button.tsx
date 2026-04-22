@@ -1,135 +1,40 @@
-import { ArrowUpRight, LucideIcon } from 'lucide-react';
+'use client';
+
+import { ArrowRight, LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { MouseEventHandler } from 'react';
 
 interface CustomButtonProps {
   text?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
   href?: string;
   icon?: LucideIcon;
   className?: string;
+  variant?: 'solid' | 'light';
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   text = 'View All',
   onClick,
   href,
-  icon: Icon = ArrowUpRight,
+  icon: Icon = ArrowRight,
   className = '',
+  variant = 'solid',
 }) => {
-  const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
-    if (onClick) {
-      onClick(e);
-    }
-    if (href) {
-      window.location.href = href;
-    }
-  };
+  const Component = href ? motion.a : motion.button;
 
   return (
-    <motion.div
-      className={`relative inline-flex items-center cursor-pointer group ${className}`}
-      onClick={handleClick}
-      whileHover='hover'
-      initial='initial'
-      style={{ width: 'fit-content' }}
+    <Component
+      className={`inline-flex h-12 items-center gap-3 rounded-md border-2 border-black px-5 text-sm font-black uppercase tracking-wide shadow-[4px_4px_0_#111] transition-all hover:-translate-y-0.5 hover:shadow-[6px_6px_0_#111] ${
+        variant === 'light' ? 'bg-white text-black' : 'bg-[#ffe45c] text-black'
+      } ${className}`}
+      onClick={onClick}
+      href={href}
+      type={href ? undefined : 'button'}
     >
-      {/* SVG filter for gooey effect */}
-      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <defs>
-          <filter id='gooey'>
-            <feGaussianBlur
-              in='SourceGraphic'
-              stdDeviation='10'
-              result='blur'
-            />
-            <feColorMatrix
-              in='blur'
-              mode='matrix'
-              values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10'
-              result='gooey'
-            />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* LAYER 1: Gooey background shapes ONLY - no text */}
-      <div
-        className='absolute inset-0 flex items-center'
-        style={{ filter: 'url(#gooey)', pointerEvents: 'none' }}
-      >
-        {/* Background shape for text button - DYNAMIC WIDTH */}
-        <motion.div
-          className='bg-green-600 rounded-full h-12 px-8'
-          style={{
-            width: 'auto',
-            minWidth: 'max-content',
-          }}
-          variants={{
-            initial: { x: 0 },
-            hover: { x: -5 },
-          }}
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        >
-          {/* Invisible text to maintain proper width */}
-          <span className='opacity-0 font-bold whitespace-nowrap'>{text}</span>
-        </motion.div>
-
-        {/* Connector blob */}
-        <motion.div
-          className='bg-green-600'
-          variants={{
-            initial: { width: '20px', height: '8px', x: -18 },
-            hover: { width: '30px', height: '16px', x: -12 },
-          }}
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        />
-
-        {/* Background shape for icon button */}
-        <motion.div
-          className='w-12 h-12 bg-green-600 rounded-full'
-          style={{ marginLeft: '-16px' }}
-          variants={{
-            initial: { x: 0 },
-            hover: { x: 5 },
-          }}
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        />
-      </div>
-
-      {/* LAYER 2: Text and icon WITHOUT filter - completely separate */}
-      <div
-        className='relative flex items-center'
-        style={{ pointerEvents: 'none' }}
-      >
-        {/* Text - no background, just text */}
-        <motion.div
-          className='px-8 h-12 flex items-center justify-center font-bold text-white whitespace-nowrap'
-          variants={{
-            initial: { x: 0 },
-            hover: { x: -5 },
-          }}
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        >
-          {text}
-        </motion.div>
-
-        {/* Smaller spacer to match the reduced connector */}
-        <div className='w-2' />
-
-        {/* Icon - no background, just icon */}
-        <motion.div
-          className='w-12 h-12 flex items-center justify-center text-white'
-          variants={{
-            initial: { x: 0, rotate: 0 },
-            hover: { x: 5, rotate: 45 },
-          }}
-          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        >
-          <Icon className='w-5 h-5' />
-        </motion.div>
-      </div>
-    </motion.div>
+      <span>{text}</span>
+      <Icon className='h-4 w-4' />
+    </Component>
   );
 };
 

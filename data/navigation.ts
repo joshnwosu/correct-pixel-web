@@ -3,15 +3,12 @@ import {
   Twitter,
   Instagram,
   Linkedin,
-  MapPin,
-  Phone,
-  Mail,
 } from 'lucide-react';
 
 export const navigationItems = [
   { name: 'About Us', href: '/about' },
-  { name: 'Our Work', href: '/our-work' },
-  { name: 'Services', href: '/services' },
+  { name: 'Our Work', href: '/#work' },
+  { name: 'Services', href: '/#services' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -24,27 +21,25 @@ export const socialLinks = [
 ];
 
 export const serviceLinks = [
-  { name: 'Web Development', href: '/services/web-development' },
-  { name: 'UI/UX Design', href: '/services/ui-ux-design' },
-  { name: 'Mobile Apps', href: '/services/mobile-apps' },
-  { name: 'Digital Marketing', href: '/services/digital-marketing' },
-  { name: 'Brand Strategy', href: '/services/brand-strategy' },
+  { name: 'Web Development', href: '/#services' },
+  { name: 'UI/UX Design', href: '/#services' },
+  { name: 'Mobile Apps', href: '/#services' },
+  { name: 'Brand Strategy', href: '/#services' },
 ];
 
 export const companyLinks = [
   { name: 'About Us', href: '/about' },
-  { name: 'Our Work', href: '/our-work' },
-  { name: 'Services', href: '/services' },
+  { name: 'Our Work', href: '/#work' },
+  { name: 'Services', href: '/#services' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Blog', href: '/blog' },
 ];
 
 export const contactInfo = {
   address: {
-    street: '123 Design Street',
-    city: 'Creative City, CC 12345',
-    country: 'United States',
+    street: 'Remote studio',
+    city: 'Lagos and global',
+    country: 'Available worldwide',
   },
-  phone: '+1 (234) 567-890',
+  phone: '+234 000 000 0000',
   email: 'hello@correctpixel.com',
 };

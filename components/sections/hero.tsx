@@ -1,176 +1,257 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+'use client';
+
+import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CustomButton from '../custom-button';
+import LogoMark from '../logo-mark';
+
+const heroLinks = [
+  ['Brand systems', 'Visual identity, voice, design rules'],
+  ['Web builds', 'Landing pages, sites, product surfaces'],
+  ['Product UI', 'Dashboards, portals, SaaS workflows'],
+  ['Launch support', 'Copy, QA, handoff, iteration'],
+];
+
+const heroStats = [
+  ['4.9/5', 'average client rating'],
+  ['6wk', 'typical launch sprint'],
+  ['35+', 'brand and web projects'],
+];
+
+const featuredStacks = [
+  ['01', 'Strategy Sprint', 'Position the offer before design starts'],
+  ['02', 'Interface Kit', 'Reusable components with a sharp visual system'],
+  ['03', 'Launch Build', 'Fast responsive pages ready for real users'],
+];
+
+const serviceSlides = [
+  {
+    title: 'Brand System',
+    subtitle: 'Identity, visual language, and launch-ready brand rules',
+    code: 'BRD',
+    accent: '#ffe45c',
+  },
+  {
+    title: 'Web Build',
+    subtitle: 'High-converting websites with responsive frontend craft',
+    code: 'WEB',
+    accent: '#9ef37f',
+  },
+  {
+    title: 'Product UI',
+    subtitle: 'Clean dashboards, portals, and product workflows',
+    code: 'UI',
+    accent: '#9fd6ff',
+  },
+  {
+    title: 'Launch Support',
+    subtitle: 'Copy, QA, handoff, and iteration after release',
+    code: 'GO',
+    accent: '#ff9bc8',
+  },
+];
 
 const Hero = () => {
-  const [activeSlice, setActiveSlice] = useState(0);
+  const [selectedService, setSelectedService] = useState(0);
+  const activeService = serviceSlides[selectedService];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlice((prev) => (prev + 1) % 4);
-    }, 2000);
+  const goToPreviousService = () => {
+    setSelectedService((current) =>
+      current === 0 ? serviceSlides.length - 1 : current - 1
+    );
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  const goToNextService = () => {
+    setSelectedService((current) => (current + 1) % serviceSlides.length);
+  };
 
   return (
-    <section className='relative overflow-hidden pb-10 py-20'>
-      {/* Background Text Elements */}
-      <div className='font-ultra pointer-events-none'>
-        <div className='absolute top-10 -right-50 md:-right-20 lg:-right-100 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
-          <h1 className='text-[80px] md:text-[140px] lg:text-[200px] tracking-wider text-muted-foreground blur-xs'>
-            Correct
-          </h1>
-        </div>
+    <section id='home' className='px-4 pb-10 pt-28 md:pb-14 md:pt-32'>
+      <div className='mx-auto grid max-w-7xl grid-cols-1 gap-5 lg:grid-cols-[1.05fr_0.95fr]'>
+        <div className='flex flex-col rounded-lg border-2 border-black bg-white p-5 shadow-[6px_6px_0_#111] md:p-8'>
+          <div className='flex items-start justify-between gap-4 border-b-2 border-dashed border-black/20 pb-6'>
+            <div>
+              <p className='text-sm font-black uppercase tracking-[0.24em] text-neutral-500'>
+                Digital design studio
+              </p>
+              <h1 className='mt-4 max-w-3xl text-4xl font-black leading-[0.92] tracking-tight md:text-6xl lg:text-7xl [text-shadow:0.5px_0_0_currentColor]'>
+                Correct Pixel makes brands worth clicking.
+              </h1>
+            </div>
+            <span
+              className='rounded-md bg-black px-3 py-2 text-lg font-black text-white'
+              aria-label='Client rating 4.9 out of 5'
+            >
+              4.9
+            </span>
+          </div>
 
-        <div className='absolute bottom-0 md:-bottom-10 -left-10 md:-left-20 lg:-left-50 flex items-center justify-center z-5 px-4 md:px-10 opacity-10 backdrop-blur-md'>
-          <h1 className='text-[80px] md:text-[140px] lg:text-[200px] tracking-wider text-muted-foreground blur-xs'>
-            Pixel
-          </h1>
-        </div>
-      </div>
+          <div className='flex flex-1 flex-col justify-between'>
+            <div className='py-7'>
+              <p className='max-w-2xl text-xl font-bold leading-relaxed text-neutral-600'>
+                A compact studio for identity, product UI, and websites with
+                enough personality to be remembered and enough structure to
+                convert.
+              </p>
 
-      {/* Main Content */}
-      <div className='relative flex flex-col lg:flex-row justify-center items-center gap-10 lg:gap-20 pt-20 md:pt-32 lg:pt-40 pb-20 px-4'>
-        {/* Text Content */}
-        <div className='relative z-10 w-full max-w-full lg:max-w-3xl space-y-4 md:space-y-6 p-0 md:p-4'>
-          <h1 className='relative z-10 text-black font-bold text-4xl md:text-5xl lg:text-6xl xl:text-8xl text-center lg:text-left font-josefin'>
-            <span className='inline-block'>We Build</span>
-            <br />
-            <span className='inline-flex flex-wrap justify-center lg:justify-start items-center gap-2 md:gap-3 pb-3'>
-              <motion.span
-                className='text-stroke font-extralight inline-block italic text-4xl md:text-5xl lg:text-6xl xl:text-7xl pr-2 font-ultra text-mu'
-                style={{
-                  overflow: 'hidden',
-                  whiteSpace: 'nowrap',
-                  WebkitTextStroke: '2px black',
-                  WebkitTextFillColor: 'transparent',
-                }}
-                // initial={{ width: 0 }}
-                // animate={{ width: 'auto' }}
-                // transition={{ duration: 2, ease: 'easeInOut' }}
-              >
-                Brands
-              </motion.span>
-              that
-            </span>{' '}
-            <br />
-            <span className='inline-block'>Stand Out!</span>
-          </h1>
+              <div className='mt-8 flex flex-col gap-3 sm:flex-row'>
+                <CustomButton text="Let's Talk" href='#contact' />
+                <CustomButton text='View Work' href='#work' variant='light' />
+              </div>
+            </div>
 
-          <p className='text-base md:text-xl lg:text-2xl font-normal mt-6 md:mt-8 lg:mt-12 text-center lg:text-left max-w-2xl mx-auto lg:mx-0'>
-            Crafting pixel-perfect web experiences and stunning UI designs that
-            captivate audiences and drive results. Your vision, executed
-            flawlessly.
-          </p>
+            <div className='border-t-2 border-dashed border-black/20 pt-5'>
+              <div className='mb-4 flex items-center justify-between'>
+                <p className='font-black uppercase tracking-[0.18em] text-sm text-neutral-500'>
+                  Studio signals
+                </p>
+                <span className='rounded bg-[#9ef37f] border-2 border-black px-2 py-1 text-xs font-black'>
+                  LIVE
+                </span>
+              </div>
 
-          <div className='flex justify-center lg:justify-start'>
-            <CustomButton text="Let's Talk" />
+              <div className='grid grid-cols-1 gap-3 sm:grid-cols-3'>
+                {heroStats.map(([value, label], index) => (
+                  <div
+                    key={label}
+                    className='rounded-md border-2 border-black bg-[#fbfbfa] p-3'
+                  >
+                    <div className='flex items-start justify-between gap-2'>
+                      <p className='text-2xl font-black'>{value}</p>
+                      <span className='font-mono text-xs font-black text-neutral-400'>
+                        {index + 1}.
+                      </span>
+                    </div>
+                    <p className='mt-1 text-sm font-semibold italic text-neutral-500'>
+                      &quot;{label}&quot;
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Sliced Image Grid */}
-        <SlicedImageGrid activeSlice={activeSlice} />
+        <div className='grid gap-5'>
+          <div className='overflow-hidden rounded-lg border-2 border-black bg-white shadow-[6px_6px_0_#111]'>
+            <div className='border-b-2 border-black px-5 py-3 text-center font-mono text-lg font-black uppercase tracking-[0.24em] text-blue-500'>
+              Select Service
+            </div>
+            <div className='bg-[repeating-linear-gradient(0deg,#e9e9e6_0,#e9e9e6_1px,#f8f8f4_1px,#f8f8f4_4px)] p-5'>
+              <div className='flex items-center justify-center gap-4'>
+                <button
+                  type='button'
+                  onClick={goToPreviousService}
+                  className='flex h-11 w-11 shrink-0 items-center justify-center rounded border-2 border-black bg-white shadow-[3px_3px_0_#111] transition-transform hover:-translate-y-0.5'
+                  aria-label='Previous service'
+                >
+                  <ChevronLeft className='h-6 w-6' />
+                </button>
+
+                <div className='mx-auto flex aspect-square w-full max-w-[260px] flex-col items-center justify-center rounded border-2 border-black bg-white p-5 text-center'>
+                  <div
+                    className='mb-5 rounded-md border-2 border-black px-3 py-1 font-mono text-sm font-black uppercase shadow-[3px_3px_0_#111]'
+                    style={{ backgroundColor: activeService.accent }}
+                  >
+                    {activeService.code}
+                  </div>
+                  <LogoMark className='scale-110' />
+                  <p className='mt-5 font-mono text-xs font-black uppercase tracking-[0.2em] text-neutral-500'>
+                    Studio Mode
+                  </p>
+                  <h2 className='mt-2 text-2xl font-black'>
+                    {activeService.title}
+                  </h2>
+                  <p className='mt-2 line-clamp-2 text-sm font-semibold italic text-neutral-500'>
+                    &quot;{activeService.subtitle}&quot;
+                  </p>
+                </div>
+
+                <button
+                  type='button'
+                  onClick={goToNextService}
+                  className='flex h-11 w-11 shrink-0 items-center justify-center rounded border-2 border-black bg-[#ffe45c] shadow-[3px_3px_0_#111] transition-transform hover:-translate-y-0.5'
+                  aria-label='Next service'
+                >
+                  <ChevronRight className='h-6 w-6' />
+                </button>
+              </div>
+              <div className='mt-4 flex items-center justify-center gap-2'>
+                {serviceSlides.map((service, index) => (
+                  <button
+                    key={service.title}
+                    type='button'
+                    onClick={() => setSelectedService(index)}
+                    className={`h-3 w-3 rounded-full border border-black transition-transform hover:scale-125 ${
+                      index === selectedService ? 'bg-black' : 'bg-neutral-300'
+                    }`}
+                    aria-label={`Select ${service.title}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className='flex items-center justify-between border-t-2 border-black bg-[#f3f3f0] px-5 py-3 font-mono text-sm font-black uppercase text-neutral-500'>
+              <button
+                type='button'
+                onClick={() => setSelectedService(0)}
+                className='rounded border-2 border-neutral-400 px-3 py-1 transition-colors hover:border-black hover:text-black'
+              >
+                Reset
+              </button>
+              <span>{String(selectedService + 1).padStart(2, '0')} / 04</span>
+              <span className='text-green-600'>1P</span>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 gap-5 sm:grid-cols-2'>
+            {featuredStacks.map(([number, title, description]) => (
+              <article
+                key={title}
+                className='rounded-lg border-2 border-black bg-white p-5 shadow-[5px_5px_0_#111]'
+              >
+                <div className='mb-4 flex items-center justify-between'>
+                  <span className='font-mono text-sm font-black text-neutral-500'>
+                    {number}.
+                  </span>
+                  <span className='rounded bg-black px-2 py-1 text-xs font-black text-white'>
+                    ON
+                  </span>
+                </div>
+                <h2 className='text-2xl font-black'>{title}</h2>
+                <p className='mt-2 font-semibold italic text-neutral-500'>
+                  &quot;{description}&quot;
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className='mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-5 md:mt-14 md:grid-cols-4'>
+        {heroLinks.map(([title, description], index) => (
+          <a
+            key={title}
+            href='#services'
+            className='group rounded-lg border-2 border-black bg-white p-4 shadow-[4px_4px_0_#111] transition-transform hover:-translate-y-1'
+          >
+            <div className='flex items-center gap-4'>
+              <span className='font-mono text-sm font-black text-neutral-500'>
+                {index + 1}.
+              </span>
+              <div>
+                <p className='font-black'>{title}</p>
+                <p className='line-clamp-1 text-sm font-semibold italic text-neutral-500'>
+                  {description}
+                </p>
+              </div>
+              <span className='ml-auto text-neutral-300 group-hover:text-black'>
+                &gt;
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
-  );
-};
-
-const SlicedImageGrid = ({ activeSlice }: any) => {
-  return (
-    <div className='relative z-5 grid grid-cols-2 gap-2 md:gap-3 lg:gap-4 w-[280px] md:w-[360px] lg:w-[420px] h-[280px] md:h-[360px] lg:h-[420px] mx-auto lg:mx-0'>
-      {/* Top Left Slice */}
-      <motion.div
-        className='relative overflow-hidden rounded-lg md:rounded-xl lg:rounded-2xl'
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        <div className='absolute inset-0 z-10' />
-        <div className='relative w-full h-full bg-gray-200'>
-          <div
-            className='w-full h-full'
-            style={{
-              backgroundImage:
-                'url(https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&h=800&fit=crop)',
-              backgroundSize: '200%',
-              backgroundPosition: '0% 0%',
-              filter: activeSlice === 0 ? 'grayscale(0%)' : 'grayscale(100%)',
-              transition: 'filter 0.5s ease-in-out',
-            }}
-          />
-        </div>
-      </motion.div>
-
-      {/* Top Right Slice */}
-      <motion.div
-        className='relative overflow-hidden rounded-lg md:rounded-xl lg:rounded-2xl'
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-      >
-        <div className='absolute inset-0 z-10' />
-        <div className='relative w-full h-full bg-gray-200'>
-          <div
-            className='w-full h-full'
-            style={{
-              backgroundImage:
-                'url(https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&h=800&fit=crop)',
-              backgroundSize: '200%',
-              backgroundPosition: '100% 0%',
-              filter: activeSlice === 1 ? 'grayscale(0%)' : 'grayscale(100%)',
-              transition: 'filter 0.5s ease-in-out',
-            }}
-          />
-        </div>
-      </motion.div>
-
-      {/* Bottom Left Slice */}
-      <motion.div
-        className='relative overflow-hidden rounded-lg md:rounded-xl lg:rounded-2xl'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-      >
-        <div className='absolute inset-0 z-10' />
-        <div className='relative w-full h-full bg-gray-200'>
-          <div
-            className='w-full h-full'
-            style={{
-              backgroundImage:
-                'url(https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&h=800&fit=crop)',
-              backgroundSize: '200%',
-              backgroundPosition: '0% 100%',
-              filter: activeSlice === 3 ? 'grayscale(0%)' : 'grayscale(100%)',
-              transition: 'filter 0.5s ease-in-out',
-            }}
-          />
-        </div>
-      </motion.div>
-
-      {/* Bottom Right Slice */}
-      <motion.div
-        className='relative overflow-hidden rounded-lg md:rounded-xl lg:rounded-2xl'
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-      >
-        <div className='absolute inset-0 z-10' />
-        <div className='relative w-full h-full bg-gray-200'>
-          <div
-            className='w-full h-full'
-            style={{
-              backgroundImage:
-                'url(https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&h=800&fit=crop)',
-              backgroundSize: '200%',
-              backgroundPosition: '100% 100%',
-              filter: activeSlice === 2 ? 'grayscale(0%)' : 'grayscale(100%)',
-              transition: 'filter 0.5s ease-in-out',
-            }}
-          />
-        </div>
-      </motion.div>
-    </div>
   );
 };
 

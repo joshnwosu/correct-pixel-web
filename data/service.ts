@@ -1,7 +1,7 @@
 export const services = [
   {
     title: 'Branding',
-    description: 'Custom websites and web applications',
+    description: 'Distinct identities for digital-first teams',
     icon: 'marketing',
     featureTitle: 'Branding Services',
     features: [
@@ -14,7 +14,7 @@ export const services = [
   },
   {
     title: 'UI/UX Design',
-    description: 'Grow your online presence',
+    description: 'Interfaces shaped around clarity and conversion',
     icon: 'design',
     featureTitle: 'UI/UX Design',
     features: [
@@ -28,7 +28,7 @@ export const services = [
   },
   {
     title: 'Development',
-    description: 'Engage your audience',
+    description: 'Responsive builds that are fast, reliable, and scalable',
     icon: 'code',
     featureTitle: 'Development',
     features: [

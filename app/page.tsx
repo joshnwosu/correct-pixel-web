@@ -1,25 +1,47 @@
-'use client';
-
+import type { Metadata } from 'next';
 import CaseStudy from '@/components/sections/case-study';
 import Hero from '@/components/sections/hero';
 import SayHello from '@/components/sections/say-hello';
 import Services from '@/components/sections/services';
 import Testimonials from '@/components/sections/testimonials';
+import WhyUs from '@/components/sections/why-us';
 import WorkProcess from '@/components/sections/work-process';
+import { absoluteUrl, siteConfig } from '@/lib/seo';
+
+export const metadata: Metadata = {
+  title: 'Brand, Product UI, and Website Studio',
+  description:
+    'Correct Pixel creates memorable brand identities, useful product interfaces, and conversion-focused websites for ambitious teams.',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Correct Pixel | Brand, Product UI, and Website Studio',
+    description:
+      'Memorable brand identities, useful product interfaces, and conversion-focused websites for ambitious teams.',
+    url: siteConfig.url,
+    images: [
+      {
+        url: absoluteUrl('/opengraph-image'),
+        width: 1200,
+        height: 630,
+        alt: 'Correct Pixel studio preview',
+      },
+    ],
+  },
+  twitter: {
+    title: 'Correct Pixel | Brand, Product UI, and Website Studio',
+    description:
+      'Memorable brand identities, useful product interfaces, and conversion-focused websites for ambitious teams.',
+    images: [absoluteUrl('/twitter-image')],
+  },
+};
 
 const HomePage = () => {
   return (
     <div className='font-josefin relative'>
-      {/* Background Pattern Overlay */}
-      <div className='absolute inset-0 opacity-5 z-0 pointer-events-none'>
-        <div
-          className='absolute inset-0'
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316a34a' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
       <Hero />
+      <WhyUs />
       <Services />
       <WorkProcess />
       <CaseStudy />
