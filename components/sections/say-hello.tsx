@@ -11,6 +11,7 @@ import CustomButton from '../custom-button';
 const SayHello = () => {
   const [budget, setBudget] = useState([25000]);
   const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>(
@@ -36,6 +37,7 @@ const SayHello = () => {
         },
         body: JSON.stringify({
           fullName,
+          email,
           phone,
           budget: formatBudget(budget[0]),
           message,
@@ -51,6 +53,7 @@ const SayHello = () => {
       setStatus('success');
       setStatusMessage(data.message);
       setFullName('');
+      setEmail('');
       setPhone('');
       setBudget([25000]);
       setMessage('');
@@ -118,8 +121,25 @@ const SayHello = () => {
             </div>
 
             <div className='space-y-2'>
+              <Label htmlFor='email' className='font-black'>
+                Email
+              </Label>
+              <Input
+                id='email'
+                name='email'
+                type='email'
+                placeholder='jane@example.com'
+                autoComplete='email'
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+                className='h-12 rounded-md border-2 border-black'
+              />
+            </div>
+
+            <div className='space-y-2'>
               <Label htmlFor='phone' className='font-black'>
-                Phone
+                Phone <span className='text-neutral-400'>(optional)</span>
               </Label>
               <Input
                 id='phone'

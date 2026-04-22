@@ -1,10 +1,17 @@
 import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 type ContactRequest = {
   fullName?: string;
+  email?: string;
   phone?: string;
   budget?: string;
   message?: string;
+};
+
+type SmtpError = Error & {
+  code?: string;
+  responseCode?: number;
 };
 
 const escapeHtml = (value: string) =>
@@ -18,6 +25,7 @@ const escapeHtml = (value: string) =>
 const formatPlainMessage = ({
   fullName,
   phone,
+  email,
   budget,
   message,
 }: Required<ContactRequest>) => {
@@ -25,6 +33,7 @@ const formatPlainMessage = ({
     'New Correct Pixel project inquiry',
     '',
     `Name: ${fullName}`,
+    `Email: ${email}`,
     `Phone: ${phone || 'Not provided'}`,
     `Budget: ${budget}`,
     '',
@@ -36,11 +45,13 @@ const formatPlainMessage = ({
 const formatHtmlMessage = ({
   fullName,
   phone,
+  email,
   budget,
   message,
 }: Required<ContactRequest>) => {
   const rows = [
     ['Name', fullName],
+    ['Email', email],
     ['Phone', phone || 'Not provided'],
     ['Budget', budget],
   ];
@@ -71,16 +82,29 @@ const formatHtmlMessage = ({
 };
 
 export async function POST(request: Request) {
-  const resendApiKey = process.env.RESEND_API_KEY;
+  const smtpHost = process.env.SMTP_HOST || 'smtp.zoho.com';
+  const smtpPort = Number(process.env.SMTP_PORT || 465);
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
   const toEmail = process.env.CONTACT_TO_EMAIL || 'hello@correctpixel.com';
   const fromEmail =
-    process.env.CONTACT_FROM_EMAIL || 'Correct Pixel <onboarding@resend.dev>';
+    process.env.CONTACT_FROM_EMAIL ||
+    (smtpUser ? `Correct Pixel <${smtpUser}>` : '');
 
-  if (!resendApiKey) {
+  const missingConfig = [
+    ['SMTP_USER', smtpUser],
+    ['SMTP_PASS', smtpPass],
+    ['CONTACT_FROM_EMAIL', fromEmail],
+  ]
+    .filter(([, value]) => !value)
+    .map(([key]) => key);
+
+  if (missingConfig.length > 0) {
     return NextResponse.json(
       {
-        message:
-          'Contact form email is not configured. Add RESEND_API_KEY in the deployment environment.',
+        message: `Contact form email is not configured. Missing: ${missingConfig.join(
+          ', '
+        )}.`,
       },
       { status: 503 }
     );
@@ -98,37 +122,59 @@ export async function POST(request: Request) {
   }
 
   const fullName = body.fullName?.trim() || '';
+  const email = body.email?.trim() || '';
   const phone = body.phone?.trim() || '';
   const budget = body.budget?.trim() || 'Not provided';
   const message = body.message?.trim() || '';
 
-  if (!fullName || !message) {
+  if (!fullName || !email || !message) {
     return NextResponse.json(
-      { message: 'Name and message are required.' },
+      { message: 'Name, email, and message are required.' },
       { status: 400 }
     );
   }
 
-  const payload = {
-    from: fromEmail,
-    to: [toEmail],
-    subject: `New project inquiry from ${fullName}`,
-    text: formatPlainMessage({ fullName, phone, budget, message }),
-    html: formatHtmlMessage({ fullName, phone, budget, message }),
-  };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return NextResponse.json(
+      { message: 'Please enter a valid email address.' },
+      { status: 400 }
+    );
+  }
 
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      'Content-Type': 'application/json',
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
     },
-    body: JSON.stringify(payload),
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-    console.error('Resend contact email failed:', error);
+  const payload = {
+    from: fromEmail,
+    to: toEmail,
+    replyTo: email,
+    subject: `New project inquiry from ${fullName}`,
+    text: formatPlainMessage({ fullName, email, phone, budget, message }),
+    html: formatHtmlMessage({ fullName, email, phone, budget, message }),
+  };
+
+  try {
+    await transporter.sendMail(payload);
+  } catch (error) {
+    console.error('Zoho SMTP contact email failed:', error);
+    const smtpError = error as SmtpError;
+
+    if (smtpError.code === 'EAUTH' || smtpError.responseCode === 535) {
+      return NextResponse.json(
+        {
+          message:
+            'Zoho rejected the SMTP login. Check SMTP_USER and SMTP_PASS in .env.local; SMTP_PASS must be a Zoho app password.',
+        },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json(
       { message: 'Unable to send your message right now.' },
