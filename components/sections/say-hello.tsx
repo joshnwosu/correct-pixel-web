@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,10 +10,58 @@ import CustomButton from '../custom-button';
 
 const SayHello = () => {
   const [budget, setBudget] = useState([25000]);
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>(
+    'idle'
+  );
+  const [statusMessage, setStatusMessage] = useState('');
 
   const formatBudget = (value: number) => {
     if (value >= 50000) return '$50,000+';
     return `$${value.toLocaleString()}`;
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus('sending');
+    setStatusMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName,
+          phone,
+          budget: formatBudget(budget[0]),
+          message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to send your message.');
+      }
+
+      setStatus('success');
+      setStatusMessage(data.message);
+      setFullName('');
+      setPhone('');
+      setBudget([25000]);
+      setMessage('');
+    } catch (error) {
+      setStatus('error');
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : 'Unable to send your message right now.'
+      );
+    }
   };
 
   return (
@@ -39,18 +87,17 @@ const SayHello = () => {
 
           <div className='mt-8'>
             <CustomButton
-              text='Email Us'
-              href='mailto:hello@correctpixel.com'
+              text='Use Form'
+              href='#contact-form'
               variant='light'
             />
           </div>
         </div>
 
         <form
+          id='contact-form'
           className='rounded-lg border-2 border-black bg-white p-5 shadow-[6px_6px_0_#111] md:p-6'
-          action='mailto:hello@correctpixel.com'
-          method='post'
-          encType='text/plain'
+          onSubmit={handleSubmit}
         >
           <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
             <div className='space-y-2'>
@@ -62,6 +109,9 @@ const SayHello = () => {
                 name='fullname'
                 type='text'
                 placeholder='Jane Smith'
+                autoComplete='name'
+                value={fullName}
+                onChange={(event) => setFullName(event.target.value)}
                 required
                 className='h-12 rounded-md border-2 border-black'
               />
@@ -76,6 +126,9 @@ const SayHello = () => {
                 name='phone'
                 type='tel'
                 placeholder='(+1) 2345 678 901'
+                autoComplete='tel'
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
                 className='h-12 rounded-md border-2 border-black'
               />
             </div>
@@ -114,16 +167,32 @@ const SayHello = () => {
               id='message'
               name='message'
               placeholder='Tell us about your project'
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
               required
               className='min-h-[150px] resize-none rounded-md border-2 border-black'
             />
           </div>
 
+          {statusMessage && (
+            <p
+              className={`mt-5 rounded-md border-2 border-black px-4 py-3 font-bold ${
+                status === 'success'
+                  ? 'bg-[#9ef37f] text-black'
+                  : 'bg-[#ffe45c] text-black'
+              }`}
+              role='status'
+            >
+              {statusMessage}
+            </p>
+          )}
+
           <Button
             type='submit'
+            disabled={status === 'sending'}
             className='mt-5 h-12 rounded-md border-2 border-black bg-[#ffe45c] px-6 font-black uppercase tracking-wide text-black shadow-[4px_4px_0_#111] hover:bg-[#ffe45c]'
           >
-            Send Message
+            {status === 'sending' ? 'Sending...' : 'Send Message'}
           </Button>
         </form>
       </div>
