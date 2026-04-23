@@ -142,7 +142,7 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Positioned below header */}
       <div
-        className={`fixed top-24 left-4 right-4 bottom-4 rounded-lg border-2 border-black bg-white md:hidden transition-all duration-300 z-40 font-alegreya shadow-[6px_6px_0_#111] ${
+        className={`fixed top-24 left-4 right-4 bottom-4 rounded-lg border-2 border-black bg-white md:hidden transition-all duration-300 z-40 font-sans shadow-[6px_6px_0_#111] ${
           isMobileMenuOpen
             ? 'opacity-100 visible translate-y-0'
             : 'opacity-0 invisible -translate-y-4'
