@@ -1,5 +1,6 @@
 import CustomButton from '../custom-button';
 import { services } from '@/data/service';
+import Image from 'next/image';
 
 const Services = () => {
   return (
@@ -30,10 +31,12 @@ const Services = () => {
                   <span className='font-mono text-sm font-black text-neutral-500'>
                     {index + 1}.
                   </span>
-                  <div className='h-10 w-10 overflow-hidden rounded border-2 border-black'>
-                    <img
+                  <div className='relative h-10 w-10 overflow-hidden rounded border-2 border-black'>
+                    <Image
                       src={service.image}
                       alt=''
+                      fill
+                      sizes='40px'
                       className='h-full w-full object-cover grayscale'
                     />
                   </div>

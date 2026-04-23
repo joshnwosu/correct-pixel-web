@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
-import { navigationItems } from '@/data/navigation';
+import { navigationItems, socialLinks } from '@/data/navigation';
 import Link from 'next/link';
 
 export default function Header() {
@@ -104,12 +104,14 @@ export default function Header() {
             ))}
           </ul>
 
-          <Link
-            href='/#contact'
-            className='hidden md:inline-flex h-10 items-center rounded-md border-2 border-black bg-[#9ef37f] px-4 text-xs font-black uppercase tracking-wide shadow-[3px_3px_0_#111] transition-transform hover:-translate-y-0.5'
-          >
-            Start a Project
-          </Link>
+          <div className='hidden md:flex items-center gap-3'>
+            <Link
+              href='/#contact'
+              className='inline-flex h-10 items-center rounded-md border-2 border-black bg-[#9ef37f] px-4 text-xs font-black uppercase tracking-wide shadow-[3px_3px_0_#111] transition-transform hover:-translate-y-0.5'
+            >
+              Start a Project
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -190,6 +192,21 @@ export default function Header() {
                 : '0ms',
             }}
           >
+            <div className='mb-6 flex items-center justify-center gap-3'>
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.href}
+                  onClick={handleLinkClick}
+                  className='flex h-11 w-11 items-center justify-center rounded-md border-2 border-black bg-white shadow-[3px_3px_0_#111] hover:bg-[#ffe45c]'
+                  aria-label={social.name}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <social.icon className='h-5 w-5 text-black' />
+                </Link>
+              ))}
+            </div>
             <p className='text-sm text-gray-500'>
               © {new Date().getFullYear()} Correct Pixel. All rights reserved.
             </p>

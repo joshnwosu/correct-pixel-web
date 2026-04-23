@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import CustomButton from '../custom-button';
-import LogoMark from '../logo-mark';
 
 const heroLinks = [
   ['Brand systems', 'Visual identity, voice, design rules'],
@@ -155,7 +155,13 @@ const Hero = () => {
                   >
                     {activeService.code}
                   </div>
-                  <LogoMark className='scale-110' />
+                  <Image
+                    src='/icon-512.png'
+                    alt='Correct Pixel logo'
+                    width={96}
+                    height={96}
+                    className='h-24 w-24 object-contain'
+                  />
                   <p className='mt-5 font-mono text-xs font-black uppercase tracking-[0.2em] text-neutral-500'>
                     Studio Mode
                   </p>

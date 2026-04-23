@@ -1,4 +1,5 @@
 import { caseStudies } from '@/data/case-study';
+import Image from 'next/image';
 import CustomButton from '../custom-button';
 
 const CaseStudy = () => {
@@ -25,10 +26,12 @@ const CaseStudy = () => {
               key={study.id}
               className='group overflow-hidden rounded-lg border-2 border-black bg-white shadow-[6px_6px_0_#111] transition-transform hover:-translate-y-1'
             >
-              <div className='h-48 border-b-2 border-black bg-neutral-100'>
-                <img
+              <div className='relative h-48 border-b-2 border-black bg-neutral-100'>
+                <Image
                   src={study.image}
                   alt={study.title}
+                  fill
+                  sizes='(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw'
                   className='h-full w-full object-cover grayscale transition-all group-hover:grayscale-0'
                 />
               </div>

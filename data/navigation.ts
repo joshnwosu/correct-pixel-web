@@ -1,5 +1,4 @@
 import {
-  Facebook,
   Twitter,
   Instagram,
   Linkedin,
@@ -14,10 +13,9 @@ export const navigationItems = [
 
 // Footer data organized in arrays
 export const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
-  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
+  { name: 'X', icon: Twitter, href: 'https://x.com/correctpixel' },
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/correctpixel' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/company/correctpixel' },
 ];
 
 export const serviceLinks = [
@@ -40,6 +38,6 @@ export const contactInfo = {
     city: 'Lagos and global',
     country: 'Available worldwide',
   },
-  phone: '+234 000 000 0000',
+  phone: '+234 701 6000 160',
   email: 'hello@correctpixel.com',
 };

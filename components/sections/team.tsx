@@ -1,4 +1,5 @@
 import { teamMembers } from '@/data/team';
+import Image from 'next/image';
 
 const Team = () => {
   return (
@@ -44,10 +45,12 @@ const Team = () => {
                   {/* Image with Flower Shape - Mobile/Tablet: Order 1, Desktop: Order 2 */}
                   <div className='relative w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 flex-shrink-0 order-1 md:order-2'>
                     {/* Mobile: Circle shape */}
-                    <div className='md:hidden w-full h-full rounded-full overflow-hidden'>
-                      <img
+                    <div className='relative md:hidden w-full h-full rounded-full overflow-hidden'>
+                      <Image
                         src={member.image || 'https://via.placeholder.com/400'}
                         alt={member.name}
+                        fill
+                        sizes='192px'
                         className='w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300'
                       />
                     </div>

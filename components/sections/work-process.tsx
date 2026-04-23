@@ -1,4 +1,5 @@
 import { workProcess } from '@/data/work-process';
+import Image from 'next/image';
 import CustomButton from '../custom-button';
 
 const WorkProcess = () => {
@@ -38,10 +39,12 @@ const WorkProcess = () => {
                 <span className='font-mono text-sm font-black text-neutral-500'>
                   {index + 1}.
                 </span>
-                <div className='h-12 w-12 overflow-hidden rounded border-2 border-black bg-neutral-100'>
-                  <img
+                <div className='relative h-12 w-12 overflow-hidden rounded border-2 border-black bg-neutral-100'>
+                  <Image
                     src={process.image}
                     alt=''
+                    fill
+                    sizes='48px'
                     className='h-full w-full object-cover grayscale'
                   />
                 </div>
