@@ -11,6 +11,7 @@ import './globals.css';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import StructuredData from '@/components/structured-data';
+import ScrollToTop from '@/components/scroll-to-top';
 import UpdateAvailable from '@/components/update-available';
 import { getAppVersion } from '@/lib/app-version';
 import { absoluteUrl, siteConfig } from '@/lib/seo';
@@ -134,6 +135,7 @@ export default function RootLayout({
       >
         <StructuredData />
         <UpdateAvailable currentVersion={currentVersion} />
+        <ScrollToTop />
         <Header />
         {children}
         <Footer />
