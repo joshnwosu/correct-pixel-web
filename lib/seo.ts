@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: 'Correct Pixel',
   shortName: 'Correct Pixel',
-  url: 'https://correctpixel.com',
+  url: 'https://www.correctpixel.com',
   email: 'hello@correctpixel.com',
-  phone: '+2340000000000',
+  phone: '+2347016000160',
   locale: 'en_US',
   description:
     'Correct Pixel is a compact design and development studio for brand identity, product UI, and high-performing websites.',
@@ -20,9 +20,9 @@ export const siteConfig = {
     'frontend development studio',
   ],
   social: {
-    instagram: 'https://instagram.com',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com',
+    instagram: 'https://instagram.com/correctpixel',
+    linkedin: 'https://linkedin.com/company/correctpixel',
+    twitter: 'https://x.com/correctpixel',
   },
 };
 

@@ -11,6 +11,8 @@ import './globals.css';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import StructuredData from '@/components/structured-data';
+import UpdateAvailable from '@/components/update-available';
+import { getAppVersion } from '@/lib/app-version';
 import { absoluteUrl, siteConfig } from '@/lib/seo';
 
 const geistSans = Geist({
@@ -123,12 +125,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const currentVersion = getAppVersion();
+
   return (
     <html lang='en'>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ultra.variable} ${spaceGrotesk.variable} ${playwrite.variable} ${alegreya.variable} antialiased`}
       >
         <StructuredData />
+        <UpdateAvailable currentVersion={currentVersion} />
         <Header />
         {children}
         <Footer />
