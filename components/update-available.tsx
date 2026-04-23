@@ -112,10 +112,26 @@ export default function UpdateAvailable({
         <button
           type='button'
           onClick={handleRefresh}
-          className='mt-4 inline-flex h-11 w-full items-center justify-between rounded-md border-2 border-black bg-[#ffe45c] px-4 text-sm font-black uppercase tracking-wide shadow-[4px_4px_0_#111] transition-transform hover:-translate-y-0.5'
+          disabled={isRefreshing}
+          className='mt-4 inline-flex h-11 w-full items-center justify-between rounded-md border-2 border-black bg-[#ffe45c] px-4 text-sm font-black uppercase tracking-wide shadow-[4px_4px_0_#111] transition-transform hover:-translate-y-0.5 disabled:cursor-wait disabled:hover:translate-y-0'
         >
-          <span>{isRefreshing ? 'Refreshing' : 'Refresh now'}</span>
-          <RefreshCcw className='h-4 w-4 shrink-0' />
+          <span className='inline-flex items-center gap-0.5'>
+            {isRefreshing ? (
+              <>
+                Refreshing
+                <span className='loading-dots' aria-hidden='true'>
+                  <span>.</span>
+                  <span>.</span>
+                  <span>.</span>
+                </span>
+              </>
+            ) : (
+              'Refresh now'
+            )}
+          </span>
+          <RefreshCcw
+            className={`h-4 w-4 shrink-0 ${isRefreshing ? 'animate-spin' : ''}`}
+          />
         </button>
       </div>
     </div>
